@@ -16,7 +16,7 @@ def call(Map args=[:]) {
             def secertsMap = "${p?.secerts}"
             println secertsMap
             secertsMap.each { key, val ->
-                 println "Key: $key , Value: $val"
+                 println "Key: ${key} , Value: ${val}"
             }
 
             for (def e in mapToList(secertsMap)){    
