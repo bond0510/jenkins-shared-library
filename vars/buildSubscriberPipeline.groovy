@@ -1,3 +1,5 @@
+import java.lang.String
+
 def call(Map args=[:]) {
 
   node {
