@@ -11,6 +11,8 @@ def call(Map args=[:]) {
             println "TEST ${p?.applicationName}"
             println "TEST ${p?.secerts?.properties2}"
             println "TEST ${p?.properties?.properties2}"
+            def secertsMap = ${p?.secerts}
+            secertsMap.each { key, val ->  println "Key: $key , Value: $val" }
         }
   }
 
