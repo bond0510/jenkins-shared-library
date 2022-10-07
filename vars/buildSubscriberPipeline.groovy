@@ -23,8 +23,8 @@ def call(Map args=[:]) {
                            
                 dir('k8s/tstenv'){
                     for (entry in propertiesMap) {
-                         println "KeyName: $entry.key = Value: $entry.value"
-                        sh 'sed -i "s/$entry.key/$entry.value}/g" test-basic-configmap.yaml'
+                        println "KeyName: $entry.key = Value: $entry.value"
+                        sh 'sed -i "sed -i "s/LOGGING_LEVEL/$LOGGING_LEVEL/g" test-basic-configmap.yaml'
                     } 
                 }
         
