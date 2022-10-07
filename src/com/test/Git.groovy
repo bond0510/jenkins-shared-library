@@ -1,5 +1,6 @@
 package com.test
 
+/* groovylint-disable-next-line ClassJavadoc */
 class Git implements Serializable {
 
     private final def script
@@ -17,6 +18,7 @@ class Git implements Serializable {
     }
 
     private static String getLatestGitCommitHashCommand() {
-        return "git rev-parse HEAD"
+        return 'git rev-parse HEAD'
     }
+
 }
