@@ -18,7 +18,10 @@ def call(Map args=[:]) {
             secertsMap.each { key, val ->
                  println "Key: $key , Value: $val"
             }
-            for (entry in map) {
+            for (def key in secertsMap.keySet()) {
+                println "key = ${key}, value = ${map[key]}"
+            }
+            for (entry in secertsMap) {
                 println "KeyName: $entry.key.toString() = Value: $entry.value.toString()"
             }
         }
