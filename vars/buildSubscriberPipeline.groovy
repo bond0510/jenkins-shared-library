@@ -9,16 +9,29 @@ def call(Map args=[:]) {
                 url: "${args.repo}"
         }
         def p = pipelineConfig()
-        stage('Process Properties') {
-            println "TEST ${p?.applicationName}"
-            println "TEST ${p?.secerts?.properties2}"
-            println "TEST ${p?.properties?.properties2}"
+        stage('Process Secerts') {
             def secerts = "${p?.secerts}"
             Map secertsMap = convertToMap(secerts) 
             for (entry in secertsMap) {
                 println "KeyName: $entry.key = Value: $entry.value"
             }
         }
+
+        stage('Process Properties') {
+            steps {
+                def properties = "${p?.properties}"
+                Map propertiesMap = convertToMap(properties) 
+                for (entry in propertiesMap) {
+                    println "KeyName: $entry.key = Value: $entry.value"
+                     dir('k8s/tstenv'){
+                        sh 'sed -i "s/${entry.key}/${entry.value}/g" `find -name "*configmap.yaml"`'
+                    } 
+                }
+               
+            }
+        }   
+            
+        
     }
 
  
