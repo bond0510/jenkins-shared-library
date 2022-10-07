@@ -1,6 +1,7 @@
-import com.test.Git
+import com.test.*
 
 def call(Map args=[:]) {
+
   node {
        stage("Checkout") {
             println "REPO : ${args.repo}"
@@ -11,4 +12,5 @@ def call(Map args=[:]) {
             println "TEST "
         }
   }
+
 }
