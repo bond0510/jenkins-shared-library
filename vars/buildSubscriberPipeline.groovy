@@ -13,13 +13,17 @@ def call(Map args=[:]) {
             println "TEST ${p?.applicationName}"
             println "TEST ${p?.secerts?.properties2}"
             println "TEST ${p?.properties?.properties2}"
-            Map secertsMap = "${p?.secerts}"
+            def secertsMap = "${p?.secerts}"
             println secertsMap
             secertsMap.each { key, val ->
                  println "Key: ${key} , Value: ${val}"
             }
-
-            for (def e in mapToList(secertsMap)){    
+            Map mapResult=[:]
+            mapResult += secertsMap.replaceAll('\\[|\\]', '').split(',').collectEntries { entry ->
+                        def pair = entry.split(':')
+                        [(pair.first().trim()): pair.last().trim()]
+            }
+            for (def e in mapToList(mapResult)){    
                 println "key = ${e.key}, value = ${e.value}"
             }
         }
