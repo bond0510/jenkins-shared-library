@@ -23,15 +23,7 @@ def call(Map args=[:]) {
                 println "key = ${e.key}, value = ${e.value}"
             }
         }
-  }
+	}
 
  
-    def mapToList(depmap) {
-        def dlist = []
-        for (entry in depmap) {
-            dlist.add([entry.key, entry.value])
-        }
-        dlist
-    }
-
 }
