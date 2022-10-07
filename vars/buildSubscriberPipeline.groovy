@@ -6,9 +6,9 @@ def call(Map args=[:]) {
             git branch: 'master',
                 url: "${args.repo}"
         }
-        def p = pipelineCfg()
+        def p = pipelineConfig()
         stage('Process Properties') {
-            println "TEST "
+            println "TEST ${p.applicationName}"
         }
   }
 
