@@ -19,8 +19,8 @@ def call(Map args=[:]) {
                  println "Key: $key , Value: $val"
             }
 
-            for (entry in secertsMap) {
-                println "KeyName: $entry.key.toString() = Value: $entry.value.toString()"
+            for (def e in mapToList(secertsMap)){    
+                println "key = ${e.key}, value = ${e.value}"
             }
         }
   }
