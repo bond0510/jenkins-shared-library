@@ -25,4 +25,13 @@ def call(Map args=[:]) {
         }
   }
 
+  @NonCPS
+    def mapToList(depmap) {
+        def dlist = []
+        for (entry in depmap) {
+            dlist.add([entry.key, entry.value])
+        }
+        dlist
+    }
+
 }
