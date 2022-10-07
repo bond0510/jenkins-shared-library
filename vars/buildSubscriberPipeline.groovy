@@ -18,17 +18,15 @@ def call(Map args=[:]) {
         }
 
         stage('Process Properties') {
-            steps {
-                def properties = "${p?.properties}"
-                Map propertiesMap = convertToMap(properties) 
-                for (entry in propertiesMap) {
-                    println "KeyName: $entry.key = Value: $entry.value"
-                     dir('k8s/tstenv'){
-                        sh 'sed -i "s/${entry.key}/${entry.value}/g" `find -name "*configmap.yaml"`'
-                    } 
-                }
-               
+            def properties = "${p?.properties}"
+            Map propertiesMap = convertToMap(properties) 
+            for (entry in propertiesMap) {
+                println "KeyName: $entry.key = Value: $entry.value"
+                dir('k8s/tstenv'){
+                    sh 'sed -i "s/${entry.key}/${entry.value}/g" `find -name "*configmap.yaml"`'
+                } 
             }
+        
         }   
             
         
