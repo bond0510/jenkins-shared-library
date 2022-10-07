@@ -15,8 +15,8 @@ def call(Map args=[:]) {
             println "TEST ${p?.properties?.properties2}"
             def secertsMap = "${p?.secerts}"
             println secertsMap
-            for (entry in secertsMap) {
-                println "KeyName: $entry.key = Value: $entry.value"
+            secertsMap.each { key, val ->
+                 println "Key: $key , Value: $val"
             }
         }
   }
