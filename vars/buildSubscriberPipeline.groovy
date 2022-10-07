@@ -25,7 +25,7 @@ def call(Map args=[:]) {
         }
   }
 
-  @NonCPS
+ 
     def mapToList(depmap) {
         def dlist = []
         for (entry in depmap) {
