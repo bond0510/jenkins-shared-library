@@ -4,7 +4,7 @@ def call(Map args=[:]) {
        stage("Checkout") {
             println "REPO : ${args.repo}"
             git branch: 'master',
-                url: '${args.repo}'
+                url: "${args.repo}"
         }
         def p = pipelineCfg()
         stage('Process Properties') {
