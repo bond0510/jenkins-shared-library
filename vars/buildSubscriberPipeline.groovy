@@ -8,7 +8,9 @@ def call(Map args=[:]) {
         }
         def p = pipelineConfig()
         stage('Process Properties') {
-            println "TEST ${p.applicationName}"
+            println "TEST ${p?.applicationName}"
+            println "TEST ${p?.secerts?.properties2}"
+            println "TEST ${p?.properties?.properties2}"
         }
   }
 
