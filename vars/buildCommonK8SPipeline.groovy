@@ -10,9 +10,10 @@ def call(Map args=[:]) {
         def p = pipelineConfig()
         stage('Process Properties') {
             def properties = "${p?.Properties}"
-            Map secertsMap = convertToMap(properties) 
-            for (entry in secertsMap) {
-                println "KeyName: $entry.key = Value: $entry.value"
+			echo "$properties"
+           
+            for (entry in properties) {
+                println "KeyName: $properties "
             }
         }
           
