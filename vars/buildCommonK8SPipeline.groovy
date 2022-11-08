@@ -25,8 +25,9 @@ def call(Map args=[:]) {
 							sh 'sed -i "s/${command}/$TEST_${command}/g" ${step.name}'
 						}
                     }
-                }
+				}
             }
+        }
         }
           
         
