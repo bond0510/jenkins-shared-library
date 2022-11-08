@@ -23,23 +23,12 @@ def call(Map args=[:]) {
 						def key="TEST_${command}"
                         def variableName="${command}"
 						def fileName="${step.name}"
-						placeHolder="${command}_VAL"
-						echo"${placeHolder}"
-                        parameters {
-                            string(name: 'FILENAME', defaultValue: "${step.name}")
-                        }
+						def placeHolder="${command}_VAL"
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
-						dir('common'){
-                            sh '''
-                            set +x
-
-                            placeHolder="${command}_VAL"
-                            echo '${placeHolder}
-                            sed -i "s/${placeHolder} /$VALUE/g" ${fileName}
-
-                            '''
-						}
-                    }
+						    dir('common'){
+                                sh 'sed -i "s/"\"${placeHolder}\""/$VALUE/g" "\"${fileName}\""'
+						    }
+                        }
 				}
             }
         }
