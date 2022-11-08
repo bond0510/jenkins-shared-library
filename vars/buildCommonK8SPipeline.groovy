@@ -19,7 +19,7 @@ def call(Map args=[:]) {
  
 }
 
-	static def parseProperties(def properties) {
+	def parseProperties(def properties) {
         def values = [];
 
         properties.each {
