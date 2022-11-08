@@ -11,6 +11,19 @@ def call(Map args=[:]) {
         stage('Process Properties') {
             def properties = "${p?.Properties}"
 			echo "$properties"
+			def map =
+			// Take the String value between
+			// the [ and ] brackets.
+			properties[1..-2]
+				// Split on , to get a List.
+				.split(', ')
+				// Each list item is transformed
+				// to a Map entry with key/value.
+				.collectEntries { entry ->
+				def pair = entry.split(':')
+				[(pair.first()): pair.last()]
+			}
+			echo "${map}"
         }
           
         
