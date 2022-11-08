@@ -25,13 +25,12 @@ def call(Map args=[:]) {
 						def fileName="${step.name}"
 						placeHolder="${command}_VAL"
 						echo"${placeHolder}"
+                        parameters {
+                            string(name: 'FILENAME', defaultValue: "${step.name}")
+                        }
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						dir('common'){
-                            sh "
-                                ph=${placeHolder}
-                                fn=${fileName}
-							   'sed -i "s/$ph /$VALUE/g" $fn'
-                            "
+                            sh 'sed -i "s/$ph /$VALUE/g" ${FILENAME}'
 						}
                     }
 				}
