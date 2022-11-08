@@ -20,11 +20,11 @@ def call(Map args=[:]) {
 }
 
 	static def parseProperties(def properties) {
-        def properties = [];
+        def values = [];
 
         properties.each {
             def service = it.tokenize(':')
             echo "${service}"
         };
-        return properties
+        return values
     }
