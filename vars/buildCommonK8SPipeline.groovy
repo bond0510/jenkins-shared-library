@@ -24,8 +24,8 @@ def call(Map args=[:]) {
 				def pair = entry.split(':')
 				
 			}
-			echo "MAP : ${map}"
-			echo "Size : ${map.size()}"
+			echo "${map}"
+			echo "${map.size()}"
         }
           
         
