@@ -27,7 +27,7 @@ def call(Map args=[:]) {
 						echo"${placeHolder}"
 						withCredentials([string(credentialsId: key, variable: variableName)]) {
 						dir('common'){
-							sh  """sed -i "s/${placeHolder}/${variableName}/g" ${fileName} """
+							sh  """sed -i "s/${placeHolder}/$variableName/g" ${fileName} """
 						}
                     }
 				}
