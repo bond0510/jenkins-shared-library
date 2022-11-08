@@ -26,7 +26,7 @@ def call(Map args=[:]) {
 					[(pair.first()): pair.last()]
 				}
 			echo "${map}"
-			echo "${map.size()}"
+			
         }
           
         
