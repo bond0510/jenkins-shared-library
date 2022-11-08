@@ -13,7 +13,7 @@ def call(Map args=[:]) {
             def properties = "${p?.Properties}"
 			echo "$properties"
 			def mapAsString = properties.toMapString()
-			def map =
+			Map map =
 			// Take the String value between
 			// the [ and ] brackets.
 			mapAsString[1..-2]
