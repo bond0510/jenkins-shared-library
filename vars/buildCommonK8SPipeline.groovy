@@ -34,7 +34,7 @@ def call(Map args=[:]) {
                             set +x
 
                             placeHolder="${command}_VAL"
-                            echo '$placeHolder'
+                            echo '${placeHolder}
                             sed -i "s/${placeHolder} /$VALUE/g" ${fileName}
 
                             '''
