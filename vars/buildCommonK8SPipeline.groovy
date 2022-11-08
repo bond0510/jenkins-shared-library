@@ -15,7 +15,14 @@ def call(Map args=[:]) {
 			// load project's configuration
     		ProjectConfiguration projectConfig = ConfigParser.parse(yaml);
             echo "${projectConfig}"
-            
+            List<Property> stepsA = projectConfig.properties.props
+			stepsA.each { step ->
+                stage(step.name) {
+                    step.commands.each { command ->
+                        echo "${command}"
+                    }
+                }
+            }
         }
           
         
