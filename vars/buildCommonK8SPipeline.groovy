@@ -32,10 +32,10 @@ def call(Map args=[:]) {
 						dir('common'){
                             sh '''
                             set +x
-                            
-                            placeHolder="${command}_VAL"
 
-                            sed -i "s/"${placeHolder}" /$VALUE/g" "${fileName}"
+                            placeHolder="${command}_VAL"
+                            echo '$placeHolder'
+                            sed -i "s/${placeHolder} /$VALUE/g" ${fileName}
 
                             '''
 						}
