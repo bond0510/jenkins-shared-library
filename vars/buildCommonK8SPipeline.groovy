@@ -30,7 +30,7 @@ def call(Map args=[:]) {
                         }
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						dir('common'){
-                            sh 'sed -i "s/$ph /$VALUE/g" ${FILENAME}'
+                            sh 'sed -i "s/$ph /$VALUE/g" $FILENAME'
 						}
                     }
 				}
