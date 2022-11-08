@@ -23,7 +23,7 @@ def call(Map args=[:]) {
 						def key="TEST_${command}"
                         def variableName="${command}"
 						def fileName="${step.name}"
-						def placeHolder="${command}_VAL"
+						placeHolder="${command}_VAL"
 						echo"${placeHolder}"
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						dir('common'){
