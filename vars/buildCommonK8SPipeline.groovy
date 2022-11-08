@@ -10,7 +10,7 @@ def call(Map args=[:]) {
         def p = pipelineConfig()
         stage('Process Properties') {
             def properties = "${p?.Properties}"
-			parseProperties(properties)
+			echo "$properties"
         }
           
         
@@ -18,13 +18,3 @@ def call(Map args=[:]) {
 
  
 }
-
-	def parseProperties(def properties) {
-        def values = [];
-
-        properties.each {
-            def service = it.tokenize(':')
-            echo "${service}"
-        };
-        return values
-    }
