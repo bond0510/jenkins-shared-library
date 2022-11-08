@@ -10,7 +10,9 @@ def call(Map args=[:]) {
         def p = pipelineConfig()
         stage('Process Properties') {
             def properties = "${p?.Properties}"
-			echo "$properties.size()"
+			properties.each {
+				echo "${it}";
+			}
         }
           
         
