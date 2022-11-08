@@ -21,12 +21,13 @@ def call(Map args=[:]) {
                     step.commands.each { command ->
                         echo "${command}"
 						def key="TEST_${command}"
+                        def variableName="${command}"
 						def fileName="${step.name}"
 						def placeHolder="${command}_VAL"
 						echo"${placeHolder}"
-						withCredentials([string(credentialsId: key, variable: key)]) {
+						withCredentials([string(credentialsId: key, variable: variableName)]) {
 						dir('common'){
-							sh  """sed -i "s/${placeHolder}/${key}/g" ${fileName} """
+							sh  """sed -i "s/${placeHolder}/${variableName}/g" ${fileName} """
 						}
                     }
 				}
