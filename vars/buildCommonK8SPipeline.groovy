@@ -21,9 +21,10 @@ def call(Map args=[:]) {
 				// to a Map entry with key/value.
 				.collectEntries { entry ->
 				def pair = entry.split(':')
-				[(pair.first()): pair.last()]
+				
 			}
-			echo "${map}"
+			echo "MAP : ${map}"
+			echo "Size : ${map.size()}"
         }
           
         
