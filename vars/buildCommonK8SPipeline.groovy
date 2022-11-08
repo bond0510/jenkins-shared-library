@@ -20,9 +20,10 @@ def call(Map args=[:]) {
                 stage(step.name) {
                     step.commands.each { command ->
                         echo "${command}"
-						withCredentials([string(credentialsId: 'TEST_${command}', variable: 'TEST_${command}')]) {
+						def key="TEST_${command}"
+						withCredentials([string(credentialsId: key, variable: key)]) {
 						dir('common'){
-							sh 'sed -i "s/${command}/$TEST_${command}/g" ${step.name}'
+							sh 'sed -i "s/${command}/$key/g" ${step.name}'
 						}
                     }
 				}
