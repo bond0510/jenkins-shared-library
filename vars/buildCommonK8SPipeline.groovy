@@ -17,9 +17,13 @@ def call(Map args=[:]) {
             echo "${projectConfig}"
             List<Property> stepsA = projectConfig.properties.props
 			stepsA.each { step ->
-                stage(step.name) {
+                stage("Update "step.name) {
                     step.commands.each { command ->
                         echo "${command}"
+						withCredentials([string(credentialsId: 'TEST_${command}', variable: 'TEST_${command}')]) {
+						dir('common'){
+							sh 'sed -i "s/${command}/$TEST_${command}/g" ${step.name}'
+						}
                     }
                 }
             }
