@@ -25,7 +25,7 @@ def call(Map args=[:]) {
 						def fileName="${step.name}"
 						def placeHolder="${command}_VAL"
                         parameters {
-                            string(name: 'STATEMENT', defaultValue: "sed -i "s/${placeHolder}/$VALUE/g" ${fileName}", description: 'What should I say?')
+                            string(name: 'STATEMENT', defaultValue: "sed -i 's/${placeHolder}/$VALUE/g' ${fileName}", description: 'What should I say?')
                         }
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						    dir('common'){
