@@ -17,7 +17,7 @@ def call(Map args=[:]) {
             echo "${projectConfig}"
             List<Property> stepsA = projectConfig.properties.props
 			stepsA.each { step ->
-                stage("Update "step.name) {
+                stage(step.name) {
                     step.commands.each { command ->
                         echo "${command}"
 						withCredentials([string(credentialsId: 'TEST_${command}', variable: 'TEST_${command}')]) {
