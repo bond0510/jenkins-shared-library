@@ -25,9 +25,9 @@ def call(Map args=[:]) {
 						def fileName="${step.name}"
 						def placeHolder="${command}_VAL"
 						echo"${placeHolder}"
-						withCredentials([string(credentialsId: key, variable: variableName)]) {
+						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						dir('common'){
-							sh  """sed -i "s/${placeHolder}/$variableName/g" ${fileName} """
+							sh  """sed -i "s/${placeHolder}/$VALUE/g" ${fileName} """
 						}
                     }
 				}
