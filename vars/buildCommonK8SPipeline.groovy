@@ -30,7 +30,7 @@ def call(Map args=[:]) {
 						    dir('common'){
                                 
                                 strCommand="sed -i 's/${placeHolder}/$VALUE/g' ${fileName}"
-                                echo ('${STATEMENT}')
+                                echo ($STATEMENT)
 						    }
                         }
 				}
