@@ -14,7 +14,6 @@ def call(Map args=[:]) {
         stage('Process Properties') {
 			// load project's configuration
     		ProjectConfiguration projectConfig = ConfigParser.parse(yaml);
-            echo "${projectConfig}"
             List<Property> stepsA = projectConfig.properties.props
 			stepsA.each { step ->
                 stage(step.name) {
@@ -31,7 +30,7 @@ def call(Map args=[:]) {
 						    dir('common'){
                                 
                                 strCommand="sed -i 's/${placeHolder}/$VALUE/g' ${fileName}"
-                                sh ('${STATEMENT}')
+                                echo ('${STATEMENT}')
 						    }
                         }
 				}
