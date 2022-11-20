@@ -31,8 +31,8 @@ def call(Map args=[:]) {
                         
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						    dir('common'){
-                                sh '''
-                                echo ($STATEMENT)
+                                sh'''
+                                echo $placeHolder  $fileName
 								'''
 						    }
                         }
