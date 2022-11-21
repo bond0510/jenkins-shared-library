@@ -31,6 +31,8 @@ def call(Map args=[:]) {
                         
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						    dir('common'){
+								echo " >> ${env.fileName}"
+								echo ">>> ${env.placeHolder}"
                                 sh'''
                                 echo $placeHolder  $fileName
 								'''
