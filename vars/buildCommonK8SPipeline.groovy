@@ -28,7 +28,8 @@ def call(Map args=[:]) {
 								string(name: 'STATEMENT', defaultValue: "sed -i 's/${placeHolder}/ test/g' ${fileName}", description: 'What should I say?')
 							]
 						)])
-                        
+						JBOSS_CREDS = credentials('TEST_MESSAGING_SERVER')
+						echo ">>>> ${JBOSS_CREDS}"
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						    dir('common'){
 								echo " >> ${env.fileName}"
