@@ -31,7 +31,7 @@ def call(Map args=[:]) {
 						environment {
 							ENV_SECRET = credentials('TEST_MESSAGING_SERVER') 
 						}
-						echo ">>>> $ENV_SECRET"
+						echo ">>>> $env.ENV_SECRET"
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						    dir('common'){
 								echo " >> ${env.fileName}"
