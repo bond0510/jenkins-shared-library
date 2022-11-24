@@ -21,17 +21,10 @@ def call(Map args=[:]) {
                         echo "${command}"
 						def key="TEST_${command}"
                         def variableName="${command}"
-						def fileName="${step.name}"
-						def placeHolder="${command}_VAL"
-                        properties([parameters(
-                            [
-								string(name: 'STATEMENT', defaultValue: "sed -i 's/${placeHolder}/ test/g' ${fileName}", description: 'What should I say?')
-							]
-						)])
-						environment {
-							ENV_SECRET = credentials('TEST_MESSAGING_SERVER') 
+						 script {
+							env.fileName="${step.name}"
+							env.placeHolder="${command}_VAL"
 						}
-						echo ">>>> $env.ENV_SECRET"
 						withCredentials([string(credentialsId: key, variable: 'VALUE')]) {
 						    dir('common'){
 								echo " >> ${env.fileName}"
