@@ -14,7 +14,10 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         repoUrl = "${args.repo}"
+                        env = "${args.env}"
                         echo repoUrl
+                        echo env
+                        checkoutSourceCode(repoUrl,env)
                     }
                 }
             }
