@@ -1,7 +1,6 @@
 package com.ec;
 
 def checkout(String url=null, String env=test) {
-    stage ('Check out source') {
         if (url == null) {
             checkout scm
         } else {
@@ -36,5 +35,4 @@ def checkout(String url=null, String env=test) {
                                                             ]
                                     ]
         }
-    }
 }
