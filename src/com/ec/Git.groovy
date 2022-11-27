@@ -1,24 +1,40 @@
-package com.test
+package com.ec;
 
-/* groovylint-disable-next-line ClassJavadoc */
-class Git implements Serializable {
-
-    private final def script
-
-    Git(def script) {
-        this.script = script
+def checkout(String url=null, String env=test) {
+    stage ('Check out source') {
+        if (url == null) {
+            checkout scm
+        } else {
+            switch (env) {
+                case 'dev':
+                    branch = 'refs/heads/develop'
+                    break
+                case 'test':
+                    branch = 'refs/heads/test'
+                    break
+                case 'stage':
+                    branch = 'refs/heads/stage'
+                    break
+                case 'prod' :
+                    branch = 'refs/heads/master'
+                    break
+                default:
+                    branch = 'refs/heads/develop'
+                    break
+            }
+            echo "${branch}"
+            checkout poll: true, scm: [
+                                        $class: 'GitSCM',
+                                        branches: [
+                                                    [name: branch]
+                                                 ],
+                                        doGenerateSubmoduleConfigurations: true,
+                                        extensions: [],
+                                        submoduleCfg: [],
+                                        userRemoteConfigs: [
+                                                                [credentialsId: 'Bitbucket_SSHkey', url: url]
+                                                            ]
+                                    ]
+        }
     }
-
-    def checkout(String repo) {
-        this.script.git credentialsId: Constants.JENKINS_GITHUB_CREDENTIALS_ID, url: "${repo}"
-    }
-
-    String commitHash() {
-        return this.script.sh(script: getLatestGitCommitHashCommand(), returnStdout: true).trim()
-    }
-
-    private static String getLatestGitCommitHashCommand() {
-        return 'git rev-parse HEAD'
-    }
-
 }
