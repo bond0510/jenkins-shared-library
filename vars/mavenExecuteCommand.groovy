@@ -6,6 +6,6 @@ def call ( String command, Closure body=null) {
                 sh 'chmod 755 mvnw'
 		        sh 'sed -i -e "s/\r$//" mvnw'
                 sh 'ls -lart'
-                sh './mvnw ${command}' 
+                sh "./mvnw ${command}"
     }
 }
