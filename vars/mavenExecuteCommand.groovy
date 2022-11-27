@@ -6,4 +6,5 @@ def call ( String command, Closure body=null) {
 		        sh 'sed -i -e "s/\r$//" mvnw'
                 sh 'ls -lart'
                 sh './mvnw ${command}' 
+    }
 }
