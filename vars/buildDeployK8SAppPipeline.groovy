@@ -15,9 +15,14 @@ def call(Map args=[:]) {
                     script {
                         repoUrl = "${args.repo}"
                         env = "${args.env}"
-                        echo repoUrl
-                        echo env
                         checkoutSourceCode(repoUrl,env)
+                    }
+                }
+            }
+            stage("Build Code") {
+                steps {
+                    script {
+                       mavenExecuteCommand('clean package')
                     }
                 }
             }
