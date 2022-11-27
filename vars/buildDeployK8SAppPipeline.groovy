@@ -27,6 +27,15 @@ def call(Map args=[:]) {
                     }
                 }
             }
+
+            stage("Build Code") {
+                steps {
+                    script {
+                       command='sonar:sonar'
+                       sonarQubeAnalysis(command)
+                    }
+                }
+            }
 			
 		}
 		
