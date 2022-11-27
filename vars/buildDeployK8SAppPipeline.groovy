@@ -22,7 +22,8 @@ def call(Map args=[:]) {
             stage("Build Code") {
                 steps {
                     script {
-                       mavenExecuteCommand('clean package')
+                       command='clean package'
+                       mavenExecuteCommand(command)
                     }
                 }
             }

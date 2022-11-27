@@ -1,4 +1,5 @@
 def call ( String command, Closure body=null) {
+    echo command
     withEnv(['JAVA_HOME=/usr/java/jdk']) {
                 sh 'pwd'
                 sh 'ls -lart'
