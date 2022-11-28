@@ -19,12 +19,17 @@ def call(Map args=[:]) {
                     }
                 }
             }
-            
+
             stage("Build Code") {
                 steps {
                     script {
-                       command='clean package'
-                       mavenExecuteCommand(command,"${args.skipTest}".toBoolean())
+                        if(args.workDir==null){
+                             mavenExecuteCommand('clean package',"${args.skipTest}".toBoolean())
+                        } else {
+                            dir(args.workDir) {
+                                mavenExecuteCommand('clean package',"${args.skipTest}".toBoolean())
+                            }
+                        }
                     }
                 }
             }
@@ -32,8 +37,13 @@ def call(Map args=[:]) {
             stage("SonarQube Analysis") {
                 steps {
                     script {
-                       command='sonar:sonar'
-                       sonarQubeAnalysis(command)
+                        if(args.workDir==null){
+                            sonarQubeAnalysis('sonar:sonar')
+                        } else {
+                            dir(args.workDir) {
+                                sonarQubeAnalysis('sonar:sonar')
+                            }
+                        }
                     }
                 }
             }
