@@ -13,7 +13,7 @@ class ConfigParser {
         return projectConfiguration
      }
 
-
+    @NonCPS
     static def parseProperties(def properties) {
         List<Property> props = properties.collect { k, v ->
             Property property = new Property(name: k)
@@ -26,6 +26,7 @@ class ConfigParser {
         return new Properties(props: props)
     }
 
+    @NonCPS
     static def parseDockerConfig(def projectConfiguration){
         return new DockerConfig(projectConfiguration)
     }
