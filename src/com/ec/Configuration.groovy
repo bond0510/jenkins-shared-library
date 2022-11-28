@@ -9,12 +9,12 @@ class Configuration {
     //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
 
     Configuration (def pipelineCfg ) {
-
         this.projectConfig = ConfigParser.parse(pipelineCfg)
     }
 
+    @NonCPS
     def dockerConfig() {
-        echo this.projectConfig.dockerConfig.imageName()
+        echo this.projectConfig.dockerConfig.imageName().toString
     }
 
 }
