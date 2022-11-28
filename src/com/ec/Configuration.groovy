@@ -1,3 +1,5 @@
+package com.ec
+
 class Configuration {
 
     ProjectConfiguration projectConfig
@@ -11,9 +13,7 @@ class Configuration {
     }
 
     def dockerConfig() {
-
         echo this.projectConfig?.dockerConfig
-
     }
 
 }
