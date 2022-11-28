@@ -6,7 +6,7 @@ class ConfigParser {
 
      static ProjectConfiguration parse(def yaml) {
         ProjectConfiguration projectConfiguration = new ProjectConfiguration()
-        projectConfiguration.dockerConfig = parseDockerConfig(projectConfiguration)
+        projectConfiguration.dockerConfig = parseDockerConfig(yaml)
         projectConfiguration.properties = parseProperties(yaml.Properties)
 
         return projectConfiguration
