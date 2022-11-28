@@ -2,7 +2,6 @@ package com.ec.parser
 
 import com.ec.*
 
-@NonCPS
 class ConfigParser {
 
      static ProjectConfiguration parse(def yaml) {
