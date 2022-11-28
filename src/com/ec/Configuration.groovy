@@ -6,7 +6,7 @@ class Configuration {
 
     //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
 
-    Configuration (String pipelinePath ) {
+    Configuration (def pipelinePath ) {
         if (fileExists("${pipelinePath}/pipeline.yaml")) {
             config = readYaml file: "${pipelinePath}/pipeline.yaml"
             this.projectConfig = ConfigParser.parse(config)
