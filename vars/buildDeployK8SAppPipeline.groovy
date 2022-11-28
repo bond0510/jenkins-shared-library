@@ -24,7 +24,7 @@ def call(Map args=[:]) {
                     script {
                        command='clean package'
                        skipTest = "${args.skipTest}"
-                       mavenExecuteCommand(command,skipTest)
+                       mavenExecuteCommand(command,skipTest.toBoolean())
                     }
                 }
             }
