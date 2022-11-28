@@ -8,6 +8,6 @@ class DockerConfig {
     }
     def imageName() {
         echo "${yaml.dockerConfig.dockerImageName}"
-        "${yaml.dockerConfig.dockerImageName}".toLowerCase()
+        return "${yaml.dockerConfig.dockerImageName}".toLowerCase()
     }
 }
