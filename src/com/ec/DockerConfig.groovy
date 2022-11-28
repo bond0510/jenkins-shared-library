@@ -2,8 +2,11 @@ package com.ec
 
 class DockerConfig {
 
-    ProjectConfiguration projectConfiguration;
+    def yaml
+    DockerConfig ( def yaml){
+        this.yaml=yaml
+    }
     def imageName() {
-        "${projectConfiguration.dockerConfig.dockerImageName}".toLowerCase();
+        "${yaml.dockerConfig.dockerImageName}".toLowerCase()
     }
 }
