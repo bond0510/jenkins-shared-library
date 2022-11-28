@@ -4,11 +4,13 @@ class DockerConfig {
 
     def yaml
     DockerConfig ( def yaml ){
-        echo yaml
         this.yaml = yaml
     }
-    def imageName() {
-        echo "${yaml.dockerConfig.dockerImageName}"
-        return "${yaml.dockerConfig.dockerImageName}".toLowerCase()
+    
+    def imageName() {    
+         if (!this.yaml || !this.yaml["dockerImageName"]) {
+            return "Dockerfile";
+        }
+        return config["dockerImageName"]
     }
 }
