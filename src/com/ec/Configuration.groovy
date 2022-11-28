@@ -14,7 +14,7 @@ class Configuration {
     }
 
     def dockerConfig() {
-        echo this.projectConfig?.dockerConfig
+        echo this.projectConfig.dockerConfig
     }
 
 }
