@@ -4,6 +4,7 @@ class DockerConfig {
 
     def yaml
     DockerConfig ( def yaml ){
+        echo yaml
         this.yaml = yaml
     }
     def imageName() {
