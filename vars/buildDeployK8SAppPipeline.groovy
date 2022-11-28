@@ -47,6 +47,20 @@ def call(Map args=[:]) {
                     }
                 }
             }
+
+            stage("Build Docker Image") {
+                steps {
+                    script {
+                        if(args.workDir==null){
+                            dockerBuild(this)
+                        } else {
+                            dir(args.workDir) {
+                                dockerBuild(this)
+                            }
+                        }
+                    }
+                }
+            }
 			
 		}
 		
