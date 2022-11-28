@@ -19,12 +19,12 @@ def call(Map args=[:]) {
                     }
                 }
             }
+            
             stage("Build Code") {
                 steps {
                     script {
                        command='clean package'
-                       skipTest = "${args.skipTest}"
-                       mavenExecuteCommand(command,skipTest.toBoolean())
+                       mavenExecuteCommand(command,"${args.skipTest}".toBoolean())
                     }
                 }
             }

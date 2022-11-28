@@ -1,7 +1,6 @@
-package com.ec.parser;
+package com.ec.parser
 
-import com.ec.*;
-
+import com.ec.*
 
 class ConfigParser {
 
@@ -9,19 +8,20 @@ class ConfigParser {
         ProjectConfiguration projectConfiguration = new ProjectConfiguration();
         projectConfiguration.properties = parseProperties(yaml.Properties);
 
-        return projectConfiguration;
-
+        return projectConfiguration
      }
-    static def parseProperties(def properties) {
 
+    static def parseProperties(def properties) {
         List<Property> props = properties.collect { k, v ->
             Property property = new Property(name: k)
             // a step can have one or more commands to execute
             v.each {
-                property.commands.add(it);
+                /* groovylint-disable-next-line ImplicitClosureParameter */
+                property.commands.add(it)
             }
             return property
         }
-        return new Properties(props: props);
+        return new Properties(props: props)
     }
+
 }
