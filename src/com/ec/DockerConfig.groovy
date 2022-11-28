@@ -2,6 +2,8 @@ package com.ec
 
 class DockerConfig {
 
-    String dockerImageName
-
+    ProjectConfiguration projectConfiguration;
+    def imageName() {
+        "${projectConfiguration.dockerConfig.dockerImageName}".toLowerCase();
+    }
 }

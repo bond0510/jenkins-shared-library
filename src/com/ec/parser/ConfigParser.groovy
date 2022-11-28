@@ -5,11 +5,13 @@ import com.ec.*
 class ConfigParser {
 
      static ProjectConfiguration parse(def yaml) {
-        ProjectConfiguration projectConfiguration = new ProjectConfiguration();
-        projectConfiguration.properties = parseProperties(yaml.Properties);
+        ProjectConfiguration projectConfiguration = new ProjectConfiguration()
+        projectConfiguration.dockerConfig = parseDockerConfig(projectConfiguration)
+        projectConfiguration.properties = parseProperties(yaml.Properties)
 
         return projectConfiguration
      }
+
 
     static def parseProperties(def properties) {
         List<Property> props = properties.collect { k, v ->
@@ -22,6 +24,11 @@ class ConfigParser {
             return property
         }
         return new Properties(props: props)
+    }
+
+    
+    static def parseDockerConfig(def projectConfiguration){
+        return new DockerConfig(projectConfiguration: projectConfiguration)
     }
 
 }
