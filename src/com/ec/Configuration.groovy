@@ -14,7 +14,7 @@ class Configuration {
 
     @NonCPS
     def dockerConfig() {
-        echo this.projectConfig.dockerConfig.imageName()
+        return this.projectConfig.dockerConfig.imageName()
     }
 
 }
