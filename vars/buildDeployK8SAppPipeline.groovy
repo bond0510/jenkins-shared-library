@@ -52,10 +52,10 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         if(args.workDir==null){
-                            dockerBuild(this)
+                            dockerBuild()
                         } else {
                             dir(args.workDir) {
-                                dockerBuild(this)
+                                dockerBuild()   
                             }
                         }
                     }

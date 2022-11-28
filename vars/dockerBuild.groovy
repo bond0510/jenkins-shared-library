@@ -1,3 +1,3 @@
-def call ( steps ) {
-    new Configuration(steps).dockerConfig()
+def call ( ) {
+    new Configuration().dockerConfig()
 }
