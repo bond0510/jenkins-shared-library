@@ -6,8 +6,8 @@ class Configuration {
 
     //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
 
-    Configuration (  ) {
-        Map pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
+    Configuration (String pipelinePath ) {
+        Map pipelineCfg = readYaml(file: pipelinePath )
 
         this.projectConfig = ConfigParser.parse(pipelineCfg)
     }
