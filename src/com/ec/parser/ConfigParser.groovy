@@ -18,7 +18,6 @@ class ConfigParser {
             Property property = new Property(name: k)
             // a step can have one or more commands to execute
             v.each {
-                /* groovylint-disable-next-line ImplicitClosureParameter */
                 property.commands.add(it)
             }
             return property
@@ -26,9 +25,8 @@ class ConfigParser {
         return new Properties(props: props)
     }
 
-    
     static def parseDockerConfig(def projectConfiguration){
-        return new DockerConfig(projectConfiguration: projectConfiguration)
+        return new DockerConfig(projectConfiguration)
     }
 
 }
