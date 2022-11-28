@@ -23,7 +23,8 @@ def call(Map args=[:]) {
                 steps {
                     script {
                        command='clean package'
-                       mavenExecuteCommand(command)
+                       skipTest = "${args.skipTest}"
+                       mavenExecuteCommand(command,skipTest)
                     }
                 }
             }

@@ -1,4 +1,4 @@
-def call ( String command, Closure body=null) {
+def call ( String command, boolean isSkipTest, Closure body=null) {
     echo command
     withEnv(['JAVA_HOME=/usr/java/jdk']) {
                 sh 'pwd'
@@ -6,6 +6,10 @@ def call ( String command, Closure body=null) {
                 sh 'chmod 755 mvnw'
 		        sh 'sed -i -e "s/\r$//" mvnw'
                 sh 'ls -lart'
-                sh "./mvnw ${command}"
+                if (isSkipTest){
+                    sh "./mvnw ${command} -Dmaven.test.skip=true"
+                } else{
+                    sh "./mvnw ${command}"
+                }
     }
 }

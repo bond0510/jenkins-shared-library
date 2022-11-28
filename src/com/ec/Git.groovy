@@ -36,37 +36,3 @@ def checkout(String url=null, String env=test) {
                                     ]
         }
 }
-
-def getChangelogTemplateString( ) {
-            return """
-                <h1> TEST </h1>
-                <p>
-                    Changelog of TEST .
-                </p>
-                {{#tags}}
-                <h2> {{name}} </h2>
-                {{#issues}}
-                    {{#hasIssue}}
-                    {{#hasLink}}
-                        <h2> {{name}} <a href="{{link}}">{{issue}}</a> {{title}} </h2>
-                    {{/hasLink}}
-                    {{^hasLink}}
-                        <h2> {{name}} {{issue}} {{title}} </h2>
-                    {{/hasLink}}
-                {{/hasIssue}}
-                {{^hasIssue}}
-                    <h2> {{name}} </h2>
-                {{/hasIssue}}
-                {{#commits}}
-                    <a href="TEST/commit/{{hash}}">{{hash}}</a> {{authorName}} <i>{{commitTime}}</i>
-                    <p>
-                        <h3>{{{messageTitle}}}</h3>
-                        {{#messageBodyItems}}
-                            <li> {{.}}</li>
-                        {{/messageBodyItems}}
-                    </p>
-                {{/commits}}
-                {{/issues}}
-            {{/tags}}
-            """
-}
