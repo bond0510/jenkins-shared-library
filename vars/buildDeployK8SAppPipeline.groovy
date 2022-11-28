@@ -52,11 +52,13 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         if(args.workDir==null){
+                            Map pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
                             pipelinePath =  "${WORKSPACE}"
                             echo pipelinePath
                             dockerBuild(pipelinePath)
                         } else {
                             dir(args.workDir) {
+                                Map pipelineCfg = readYaml(file: "${WORKSPACE}/${args.workDir}/pipeline.yaml")
                                 pipelinePath =  "${WORKSPACE}/${args.workDir}"
                                 echo pipelinePath
                                 dockerBuild(pipelinePath)   
