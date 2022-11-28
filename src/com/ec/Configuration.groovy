@@ -6,15 +6,9 @@ class Configuration {
 
     //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
 
-    Configuration (def pipelinePath ) {
-        echo pipelinePath
-        if (fileExists("${pipelinePath}/pipeline.yaml")) {
-            config = readYaml file: "${pipelinePath}/pipeline.yaml"
-            this.projectConfig = ConfigParser.parse(config)
-            println "config ==> ${config}"
-        } else {
-            config = []
-        }
+    Configuration (def pipelineCfg ) {
+        
+        this.projectConfig = ConfigParser.parse(pipelineCfg)
     }
 
     def dockerConfig() {
