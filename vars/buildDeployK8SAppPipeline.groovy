@@ -57,7 +57,7 @@ def call(Map args=[:]) {
                             dockerBuild(pipelinePath)
                         } else {
                             dir(args.workDir) {
-                                pipelinePath =  "${WORKSPACE}/pipeline.yaml"
+                                pipelinePath =  "${WORKSPACE}/${args.workDir}/pipeline.yaml"
                                 echo pipelinePath
                                 dockerBuild(pipelinePath)   
                             }
