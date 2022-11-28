@@ -1,6 +1,9 @@
 import com.ec.Configuration
 
 
-def call ( def  pipelineCfg) {
-    new Configuration(pipelineCfg.dockerConfig).dockerConfig()
+def call ( def  pipelineCfg ) {
+
+    def dockerCfg = new Configuration(pipelineCfg.dockerConfig).dockerConfig()
+    
+    echo dockerCfg
 }
