@@ -1,5 +1,7 @@
 package com.ec
 
+import com.ec.parser.*
+
 class Configuration {
 
     ProjectConfiguration projectConfig
@@ -7,7 +9,7 @@ class Configuration {
     //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
 
     Configuration (def pipelineCfg ) {
-        
+
         this.projectConfig = ConfigParser.parse(pipelineCfg)
     }
 
