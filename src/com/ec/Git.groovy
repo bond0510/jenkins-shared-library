@@ -35,8 +35,9 @@ def checkout(String url=null, String env=test) {
                                                             ]
                                     ]
         }
+}
 
-        def getChangelogTemplateString( ) {
+def getChangelogTemplateString( ) {
             return """
                 <h1> TEST </h1>
                 <p>
@@ -68,5 +69,4 @@ def checkout(String url=null, String env=test) {
                 {{/issues}}
             {{/tags}}
             """
-        }
 }
