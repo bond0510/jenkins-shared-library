@@ -52,12 +52,12 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         if(args.workDir==null){
-                            pipelinePath =  "${WORKSPACE}/pipeline.yaml"
+                            pipelinePath =  "${WORKSPACE}"
                             echo pipelinePath
                             dockerBuild(pipelinePath)
                         } else {
                             dir(args.workDir) {
-                                pipelinePath =  "${WORKSPACE}/${args.workDir}/pipeline.yaml"
+                                pipelinePath =  "${WORKSPACE}/${args.workDir}"
                                 echo pipelinePath
                                 dockerBuild(pipelinePath)   
                             }

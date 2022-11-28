@@ -7,9 +7,13 @@ class Configuration {
     //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
 
     Configuration (String pipelinePath ) {
-        Map pipelineCfg = readYaml(file: "${pipelinePath}" )
-
-        this.projectConfig = ConfigParser.parse(pipelineCfg)
+        if (fileExists("${pipelinePath}/pipeline.yaml")) {
+            config = readYaml file: "${pipelinePath}/pipeline.yaml"
+            this.projectConfig = ConfigParser.parse(config)
+            println "config ==> ${config}"
+        } else {
+            config = []
+        }
     }
 
     def dockerConfig() {
