@@ -4,6 +4,7 @@ import com.ec.*
 
 class ConfigParser {
 
+     @NonCPS
      static ProjectConfiguration parse(def yaml) {
         ProjectConfiguration projectConfiguration = new ProjectConfiguration()
         projectConfiguration.dockerConfig = parseDockerConfig(yaml)
