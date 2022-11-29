@@ -3,6 +3,7 @@ import java.lang.String
 import java.util.Map
 import com.ec.jenkins.components.parser.ConfigParser
 import com.ec.jenkins.components.*
+import com.ec.jenkins.components.services.*
 
 def call(Map args=[:]) {
 
