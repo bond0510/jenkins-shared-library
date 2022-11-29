@@ -10,8 +10,8 @@ class Docker {
     Docker(steps) {
         this.steps = steps
         
-        echo "workspace directory is ${steps.env.WORKSPACE}"
-        echo "build URL is ${steps.env..BUILD_URL}"
+        echo "build URL is ${steps.env.BUILD_NUMBER}"
+        echo "workspace directory is ${steps.env.WORKSPACE}/cardxPSD2/pipline.yaml"
     }
 
 }
