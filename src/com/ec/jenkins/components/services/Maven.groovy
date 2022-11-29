@@ -1,10 +1,8 @@
 package com.ec.jenkins.components.services
 
-public static JAVA_HOME_ENV = 'JAVA_HOME=/usr/java/jdk'
-
 def executeCommand(String command, boolean isSkipTest, Closure body=null) {
     echo command
-    withEnv([ JAVA_HOME_ENV ]) {
+    withEnv([ 'JAVA_HOME=/usr/java/jdk' ]) {
                 sh 'pwd'
                 sh 'ls -lart'
                 sh 'chmod 755 mvnw'
@@ -19,7 +17,7 @@ def executeCommand(String command, boolean isSkipTest, Closure body=null) {
 
 def sonarQubeAnalysis (Closure body=null) {
 
-    withEnv([ JAVA_HOME_ENV ]) {
+    withEnv([ 'JAVA_HOME=/usr/java/jdk' ]) {
             withSonarQubeEnv('Sonarqube web server') {
                 sh './mvnw sonar:sonar '
             }
