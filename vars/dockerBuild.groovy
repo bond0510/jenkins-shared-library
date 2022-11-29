@@ -12,26 +12,13 @@ def call ( String env , String workDir) {
             pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
         }
     }
-
     def dockerCfg = new Configuration(pipelineCfg.dockerConfig,env).getDockerConfig()
-
-    buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
-
-    switch (env) {
-        case 'dev':
-            break
-        case 'test':
-            branch = 'refs/heads/test'
-            break
-        case 'stage':
-            branch = 'refs/heads/stage'
-            break
-        case 'prod' :
-            branch = 'refs/heads/master'
-            break
-        default:
-            branch = 'refs/heads/develop'
-            break
+    if (workDir == null){
+        buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
+    } else {
+        dir(workDir) {
+            buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
+        }
     }
 }
 
