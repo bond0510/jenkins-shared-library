@@ -1,6 +1,9 @@
-package com.ec.parser
+package com.ec.jenkins.components.parser
 
-import com.ec.*
+import com.ec.jenkins.components.ProjectConfiguration
+import com.ec.jenkins.components.Property
+import com.ec.jenkins.components.Properties
+import com.ec.jenkins.components.DockerConfig
 
 class ConfigParser {
 
