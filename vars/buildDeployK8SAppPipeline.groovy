@@ -21,7 +21,11 @@ def call(Map args=[:]) {
                     }
                 }
             }
-
+            environment {
+                BRANCH_NAME = "${BRANCH_NAME}"
+                WORKSPACE = "${WORKSPACE}"
+                BUILD_NUMBER = "${BUILD_NUMBER}"
+            }
             stage("Build Code") {
                 steps {
                     script {
