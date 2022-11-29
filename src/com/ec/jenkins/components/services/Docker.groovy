@@ -5,13 +5,11 @@ import com.ec.jenkins.components.parser.ConfigParser
 
 class Docker {
 
-    def steps
+    def build ( image, List<String> tags=['latest'] ) {
 
-    Docker( steps , Closure body=null ) {
-        this.steps = steps
-        echo "build URL is ${env.BUILD_NUMBER}"
-        echo "build URL is ${steps.env.BUILD_NUMBER}"
-        
+        tags.each { tag ->
+            sh "docker build --file=docker/Dockerfile.remote -t ${image}:${tag} ."
+        }
     }
 
 }

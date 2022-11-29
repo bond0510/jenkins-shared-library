@@ -1,12 +1,16 @@
 import com.ec.jenkins.components.services.Configuration
+import com.ec.jenkins.components.services.Docker
 
-def call ( def pipelineCfg , String TAG_VERSION,String env) {
+def call ( String env) {
 
+    TAG_VERSION = readMavenPom().getVersion()
+    def pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
     def dockerCfg = new Configuration(pipelineCfg.dockerConfig,env).getDockerConfig()
+
+    buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
 
     switch (env) {
         case 'dev':
-            buildDockerImage( dockerCfg.imageName() ,TAG_VERSION )
             break
         case 'test':
             branch = 'refs/heads/test'
@@ -24,6 +28,7 @@ def call ( def pipelineCfg , String TAG_VERSION,String env) {
 }
 
 def buildDockerImage( String imageName, String TAG_VERSION ){
-    echo " Building ${imageName} docker image of version ${TAG_VERSION} "
-    sh " docker build --file=docker/Dockerfile.remote -t ${imageName}:${TAG_VERSION} ."
+    def docker = new Docker()
+    List<String> tags = [TAG_VERSION ,'latest']
+    docker.build(imageName , tags)
 }
