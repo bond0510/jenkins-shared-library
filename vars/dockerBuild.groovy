@@ -1,15 +1,15 @@
 import com.ec.jenkins.components.services.Configuration
 import com.ec.jenkins.components.services.Docker
 
-def call ( String env) {
+def call ( String env , String workDir) {
 
     TAG_VERSION = readMavenPom().getVersion()
     def pipelineCfg
-    if (args.workDir == null){
+    if (workDir == null){
         pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
     } else {
-        dir(args.workDir) {
-            pipelineCfg = readYaml(file: "${WORKSPACE}/${args.workDir}/pipeline.yaml")
+        dir(workDir) {
+            pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
         }
     }
 
