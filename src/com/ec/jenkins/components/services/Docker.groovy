@@ -9,7 +9,7 @@ class Docker {
         
         tags.each { tag ->
             echo "DOCKER IMAGE NAME : ${imageName}:${tag}"
-            sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+            //sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
         }
     }
 
