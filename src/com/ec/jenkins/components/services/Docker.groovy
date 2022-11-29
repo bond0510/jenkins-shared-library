@@ -5,6 +5,7 @@ import com.ec.jenkins.components.parser.ConfigParser
 
 class Docker {
 
+    @NonCPS
     def build ( String image, List<String> tags=['latest'] ) {
 
         tags.each { tag ->
