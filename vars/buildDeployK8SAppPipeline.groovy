@@ -9,7 +9,13 @@ def call(Map args=[:]) {
 
 	 pipeline {
         agent any
-		
+
+		environment {
+            BRANCH_NAME = "${BRANCH_NAME}"
+            WORKSPACE = "${WORKSPACE}"
+            BUILD_NUMBER = "${BUILD_NUMBER}"
+        }
+
 		stages {
 		
 			stage("Checkout Source Code") {
@@ -21,11 +27,7 @@ def call(Map args=[:]) {
                     }
                 }
             }
-            environment {
-                BRANCH_NAME = "${BRANCH_NAME}"
-                WORKSPACE = "${WORKSPACE}"
-                BUILD_NUMBER = "${BUILD_NUMBER}"
-            }
+           
             stage("Build Code") {
                 steps {
                     script {
