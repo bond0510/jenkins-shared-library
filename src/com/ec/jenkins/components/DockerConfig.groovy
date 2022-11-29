@@ -1,4 +1,4 @@
-package com.ec
+package com.ec.jenkins.components
 
 class DockerConfig {
 
