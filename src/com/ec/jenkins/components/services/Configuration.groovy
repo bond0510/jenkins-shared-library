@@ -1,5 +1,6 @@
 package com.ec.jenkins.components.services
 
+import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.parser.ConfigParser
 
 class Configuration {
