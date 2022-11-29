@@ -59,13 +59,7 @@ def call(Map args=[:]) {
             stage("Build Docker Image") {
                 steps {
                     script {
-                        if(args.workDir==null){
-                            dockerBuild("${args.env}")
-                        } else {
-                            dir(args.workDir) {
-                                dockerBuild("${args.env}")
-                            }
-                        }
+                        dockerBuild("${args.env}", "${args.workDir}")
                     }
                 }
             }
