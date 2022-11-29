@@ -4,7 +4,15 @@ import com.ec.jenkins.components.services.Docker
 def call ( String env) {
 
     TAG_VERSION = readMavenPom().getVersion()
-    def pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
+    def pipelineCfg
+    if (args.workDir == null){
+        pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
+    } else {
+        dir(args.workDir) {
+            pipelineCfg = readYaml(file: "${WORKSPACE}/${args.workDir}/pipeline.yaml")
+        }
+    }
+
     def dockerCfg = new Configuration(pipelineCfg.dockerConfig,env).getDockerConfig()
 
     buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
