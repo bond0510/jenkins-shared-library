@@ -13,12 +13,12 @@ class Configuration {
 
     public static DOCKER_REGISTRY_CREDENTIAL_ID = 'oicr_creds'
 
-    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env.repoName}/"
+    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
     Configuration ( steps, def pipelineCfg , String env ) {
         this.steps = steps
         this.projectConfig = ConfigParser.parse(pipelineCfg)
-        env.repoName = steps.sh(script: 'echo $env', returnStdout: true).trim()
+       // steps.env.repoEnv = steps.sh(script: 'echo $env', returnStdout: true).trim()
     }
 
     @NonCPS
