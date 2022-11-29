@@ -9,7 +9,9 @@ class Docker {
 
     Docker(steps) {
         this.steps = steps
-        echo "${steps.env.WORKSPACE}"
+        
+        echo "workspace directory is ${steps.env.WORKSPACE}"
+        echo "build URL is ${steps.env..BUILD_URL}"
     }
 
 }
