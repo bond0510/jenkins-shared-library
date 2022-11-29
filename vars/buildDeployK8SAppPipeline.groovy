@@ -53,7 +53,7 @@ def call(Map args=[:]) {
             stage("Build Docker Image") {
                 steps {
                     script {
-                        new Docker()
+                        new Docker(this)
                     }
                 }
             }
