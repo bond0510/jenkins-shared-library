@@ -27,5 +27,7 @@ def buildDockerImage( String imageName, String TAG_VERSION ){
     def docker = new Docker()
     echo "DOCKER IMAGE NAME : ${imageName}:${TAG_VERSION}"
     List<String> tags = [TAG_VERSION ,'latest']
-    docker.build(imageName , tags)
+    tags.each { tag ->
+        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+    }
 }
