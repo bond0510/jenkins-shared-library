@@ -52,12 +52,14 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         if(args.workDir==null){
+                            TAG_VERSION = readMavenPom().getVersion()
                             def pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
-                            dockerBuild(pipelineCfg)
+                            dockerBuild(pipelineCfg,TAG_VERSION)
                         } else {
                             dir(args.workDir) {
+                                TAG_VERSION = readMavenPom().getVersion()
                                 def pipelineCfg = readYaml(file: "${WORKSPACE}/${args.workDir}/pipeline.yaml")
-                                dockerBuild(pipelineCfg)   
+                                dockerBuild(pipelineCfg,TAG_VERSION)   
                             }
                         }
                     }

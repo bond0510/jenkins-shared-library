@@ -6,15 +6,26 @@ class Configuration {
 
     ProjectConfiguration projectConfig
 
-    //public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
+    public static DOCKER_REGISTRY_URL = 'https://fra.ocir.io'
 
-    Configuration (def pipelineCfg ) {
+    public static DOCKER_REGISTRY_CREDENTIAL_ID = 'oicr_creds'
+
+    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
+
+    Configuration (def pipelineCfg , String env ) {
         this.projectConfig = ConfigParser.parse(pipelineCfg)
+        env.env=env
     }
 
     @NonCPS
-    def dockerConfig() {
+    def getDockerConfig() {
+        return this.projectConfig.dockerConfig
+    }
+
+    @NonCPS
+    def imageName() {
         return this.projectConfig.dockerConfig.imageName()
     }
+
 
 }
