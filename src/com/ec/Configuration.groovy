@@ -10,7 +10,7 @@ class Configuration {
 
     public static DOCKER_REGISTRY_CREDENTIAL_ID = 'oicr_creds'
 
-    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env}/"
+    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env.env}/"
 
     Configuration (def pipelineCfg , String env ) {
         this.projectConfig = ConfigParser.parse(pipelineCfg)
