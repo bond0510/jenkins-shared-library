@@ -5,11 +5,10 @@ import com.ec.jenkins.components.parser.ConfigParser
 
 class Docker {
 
-    @NonCPS
-    def build ( String image, List<String> tags=['latest'] ) {
+    def build ( String imageName, List<String> tags=['latest'] ) {
 
         tags.each { tag ->
-            sh "docker build --file=docker/Dockerfile.remote -t ${image}:${tag} ."
+            sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
         }
     }
 
