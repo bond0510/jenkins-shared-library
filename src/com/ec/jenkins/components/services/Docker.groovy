@@ -7,6 +7,7 @@ class Docker {
 
     def steps
 
+    @NonCPS
     Docker(steps) {
         this.steps = steps
         steps.env.BUILD_NUMBER = steps.sh(script: '${BUILD_NUMBER}', returnStdout: true).trim()
