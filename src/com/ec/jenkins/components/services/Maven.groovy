@@ -15,7 +15,7 @@ def executeCommand(String command, boolean isSkipTest, Closure body=null) {
     }
 }
 
-def sonarQubeAnalysis (Closure body=null) {
+def sonarQubeAnalysis ( Closure body=null ) {
 
     withEnv([ 'JAVA_HOME=/usr/java/jdk' ]) {
             withSonarQubeEnv('Sonarqube web server') {

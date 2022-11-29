@@ -53,17 +53,7 @@ def call(Map args=[:]) {
             stage("Build Docker Image") {
                 steps {
                     script {
-                        if(args.workDir==null){
-                            TAG_VERSION = readMavenPom().getVersion()
-                            def pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
-                            dockerBuild(pipelineCfg,TAG_VERSION)
-                        } else {
-                            dir(args.workDir) {
-                                TAG_VERSION = readMavenPom().getVersion()
-                                def pipelineCfg = readYaml(file: "${WORKSPACE}/${args.workDir}/pipeline.yaml")
-                                dockerBuild(this,pipelineCfg,TAG_VERSION)   
-                            }
-                        }
+                        new Docker()
                     }
                 }
             }
