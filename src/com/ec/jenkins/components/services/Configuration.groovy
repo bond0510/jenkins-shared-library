@@ -7,16 +7,13 @@ class Configuration {
 
     ProjectConfiguration projectConfig
 
-    def steps
-
     public static DOCKER_REGISTRY_URL = 'https://fra.ocir.io'
 
     public static DOCKER_REGISTRY_CREDENTIAL_ID = 'oicr_creds'
 
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
-    Configuration ( steps, def pipelineCfg , String env ) {
-        this.steps = steps
+    Configuration (def pipelineCfg ) {
         this.projectConfig = ConfigParser.parse(pipelineCfg)
        // steps.env.repoEnv = steps.sh(script: 'echo $env', returnStdout: true).trim()
     }

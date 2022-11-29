@@ -13,7 +13,7 @@ def call ( String env , String workDir) {
             pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
         }
     }
-    def dockerCfg = new Configuration(pipelineCfg.dockerConfig,env).getDockerConfig()
+    def dockerCfg = new Configuration(pipelineCfg.dockerConfig).getDockerConfig()
     if (workDir == null){
         buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
     } else {
