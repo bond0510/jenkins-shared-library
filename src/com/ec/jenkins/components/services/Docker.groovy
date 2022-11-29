@@ -9,7 +9,7 @@ class Docker {
 
     Docker(steps) {
         this.steps = steps
-        echo "${env.WORKSPACE}"
+        echo "${steps.env.WORKSPACE}"
     }
 
 }
