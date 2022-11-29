@@ -5,7 +5,7 @@ import com.ec.jenkins.components.parser.ConfigParser
 
 class Docker {
 
-    def build ( def imageName, List<String> tags=['latest'] ) {
+    def build ( String imageName=null , List<String> tags=['latest'] ) {
         
         tags.each { tag ->
             echo "DOCKER IMAGE NAME : ${imageName}:${tag}"
