@@ -1,4 +1,4 @@
-import com.ec.Configuration
+import com.ec.jenkins.components.services.Configuration
 
 def call ( def pipelineCfg , String TAG_VERSION,String env) {
 

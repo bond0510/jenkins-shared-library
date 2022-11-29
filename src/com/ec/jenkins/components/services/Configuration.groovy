@@ -1,20 +1,23 @@
-package com.ec
+package com.ec.jenkins.components.services
 
-import com.ec.parser.*
+import com.ec.jenkins.components.parser.ConfigParser
 
 class Configuration {
 
     ProjectConfiguration projectConfig
 
+    def steps
+
     public static DOCKER_REGISTRY_URL = 'https://fra.ocir.io'
 
     public static DOCKER_REGISTRY_CREDENTIAL_ID = 'oicr_creds'
 
-    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env.env}/"
+    public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/${env.repoName}/"
 
-    Configuration (def pipelineCfg , String env ) {
+    Configuration ( steps, def pipelineCfg , String env ) {
+        this.steps = steps
         this.projectConfig = ConfigParser.parse(pipelineCfg)
-        env.env=env
+        env.repoName = steps.sh(script: 'echo $env', returnStdout: true).trim()
     }
 
     @NonCPS

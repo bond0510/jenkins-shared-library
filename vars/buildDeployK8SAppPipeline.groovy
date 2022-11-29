@@ -1,7 +1,8 @@
-import java.lang.String;
-import java.util.Map;
-import com.ec.parser.ConfigParser;
-import com.ec.*;
+
+import java.lang.String
+import java.util.Map
+import com.ec.jenkins.components.parser.ConfigParser
+import com.ec.jenkins.components.*
 
 def call(Map args=[:]) {
 
@@ -24,10 +25,10 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         if(args.workDir==null){
-                             mavenExecuteCommand('clean package',"${args.skipTest}".toBoolean())
+                             new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
                         } else {
                             dir(args.workDir) {
-                                mavenExecuteCommand('clean package',"${args.skipTest}".toBoolean())
+                                new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
                             }
                         }
                     }
@@ -38,10 +39,10 @@ def call(Map args=[:]) {
                 steps {
                     script {
                         if(args.workDir==null){
-                            sonarQubeAnalysis('sonar:sonar')
+                            new Maven().sonarQubeAnalysis()
                         } else {
                             dir(args.workDir) {
-                                sonarQubeAnalysis('sonar:sonar')
+                                new Maven().sonarQubeAnalysis()
                             }
                         }
                     }
@@ -59,7 +60,7 @@ def call(Map args=[:]) {
                             dir(args.workDir) {
                                 TAG_VERSION = readMavenPom().getVersion()
                                 def pipelineCfg = readYaml(file: "${WORKSPACE}/${args.workDir}/pipeline.yaml")
-                                dockerBuild(pipelineCfg,TAG_VERSION)   
+                                dockerBuild(this,pipelineCfg,TAG_VERSION)   
                             }
                         }
                     }
