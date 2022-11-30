@@ -15,7 +15,7 @@ class Configuration {
 
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
-    Configuration (def pipelineCfg , String env=test ) {
+    Configuration (def pipelineCfg , String env ) {
         this.projectConfig = ConfigParser.parse(pipelineCfg)
         this.env = env
     // steps.env.repoEnv = steps.sh(script: 'echo $env', returnStdout: true).trim()
