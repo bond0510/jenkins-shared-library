@@ -1,3 +1,4 @@
+/* groovylint-disable DuplicateStringLiteral */
 package com.ec.jenkins.components.parser
 
 import com.ec.jenkins.components.ProjectConfiguration
@@ -10,7 +11,7 @@ class ConfigParser {
      @NonCPS
      static ProjectConfiguration parse(def yaml) {
         ProjectConfiguration projectConfiguration = new ProjectConfiguration()
-        projectConfiguration.dockerConfig = parseDockerConfig(yaml)
+        projectConfiguration.dockerConfig = parseDockerConfig(yaml.dockerConfig)
         projectConfiguration.properties = parseProperties(yaml.Properties)
 
         return projectConfiguration
@@ -30,8 +31,12 @@ class ConfigParser {
     }
 
     @NonCPS
-    static def parseDockerConfig(def projectConfiguration){
-        return new DockerConfig(projectConfiguration)
+    static def parseDockerConfig(def dockerConfig){
+        
+        if (!this.dockerConfig || !this.dockerConfig['dockerImageName']) {
+            return "Dockerfile"
+        }
+        return new DockerConfig(imageName: dockerConfig['dockerImageName'])
     }
 
 }

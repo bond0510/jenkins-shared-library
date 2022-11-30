@@ -2,22 +2,9 @@ package com.ec.jenkins.components
 
 class DockerConfig {
 
-    def yaml
+    String imageName
 
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
-
-    DockerConfig ( def yaml ){
-        this.yaml = yaml
-    }
-    
-    @NonCPS
-    def imageName() {
-        echo yaml
-         if (!this.yaml || !this.yaml['dockerImageName']) {
-            return "Dockerfile"
-         }
-        return yaml["dockerImageName"]
-    }
 
     def tenancyNamespace (String env ) {
          switch (env) {

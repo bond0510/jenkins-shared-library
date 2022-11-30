@@ -18,7 +18,7 @@ def call ( String env , String workDir) {
 
     def dockerCfg = projectConfig.dockerConfig
 
-    String dockerImageName =  dockerCfg.imageName().toLowerCase();
+    String dockerImageName =  dockerCfg.imageName.toLowerCase();
     if (workDir == null){
         buildDockerImage( dockerImageName , TAG_VERSION )
     } else {
