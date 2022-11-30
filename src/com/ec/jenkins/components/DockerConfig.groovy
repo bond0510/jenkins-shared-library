@@ -7,6 +7,8 @@ class DockerConfig {
         this.yaml = yaml
     }
 
+    String tenancyNamespace
+
     @NonCPS
     def imageName() {    
          if (!this.yaml || !this.yaml['dockerImageName']) {

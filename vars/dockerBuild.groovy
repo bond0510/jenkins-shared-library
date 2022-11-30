@@ -13,7 +13,7 @@ def call ( String env , String workDir) {
             pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
         }
     }
-    def dockerCfg = new Configuration(pipelineCfg.dockerConfig).getDockerConfig()
+    def dockerCfg = new Configuration(pipelineCfg , env ).getDockerConfig()
     if (workDir == null){
         buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
     } else {
@@ -21,10 +21,24 @@ def call ( String env , String workDir) {
             buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
         }
     }
+    def tenancyNamespace = dockerCfg.tenancyNamespace
+    echo tenancyNamespace
 }
 
 def buildDockerImage( String imageName, String TAG_VERSION ){
-    def docker = new Docker()
-    echo "DOCKER IMAGE NAME : ${imageName}:${TAG_VERSION}"
-    docker.build("${imageName}" , "${TAG_VERSION}")
+
+    List<String> tags = [TAG_VERSION ,'latest']
+    tags.each { tag ->
+        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+    }
+
+}
+
+def tagDockerImage( String imageName, String TAG_VERSION ){
+
+    List<String> tags = [TAG_VERSION ,'latest']
+    tags.each { tag ->
+        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+    }
+
 }

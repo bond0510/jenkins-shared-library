@@ -7,14 +7,17 @@ class Configuration {
 
     ProjectConfiguration projectConfig
 
+    String env
+
     public static DOCKER_REGISTRY_URL = 'https://fra.ocir.io'
 
     public static DOCKER_REGISTRY_CREDENTIAL_ID = 'oicr_creds'
 
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
-    Configuration (def pipelineCfg ) {
+    Configuration (def pipelineCfg , String env=test ) {
         this.projectConfig = ConfigParser.parse(pipelineCfg)
+        this.env = env
        // steps.env.repoEnv = steps.sh(script: 'echo $env', returnStdout: true).trim()
     }
 
@@ -28,5 +31,24 @@ class Configuration {
         return this.projectConfig.dockerConfig.imageName()
     }
 
+    def tenancyNamespace () {
+        switch (env) {
+            case 'dev':
+                return FULL_IMAGE_REPO_URL'/tstenv/'
+                break
+            case 'test':
+                return FULL_IMAGE_REPO_URL'/tstenv/'
+                break
+            case 'stage':
+                return FULL_IMAGE_REPO_URL'/stgenv/'
+                break
+            case 'prod' :
+                return FULL_IMAGE_REPO_URL'/prdenv/'
+                break
+            default:
+                return FULL_IMAGE_REPO_URL'/tstenv/'
+                break
+        }
+    }
 
 }
