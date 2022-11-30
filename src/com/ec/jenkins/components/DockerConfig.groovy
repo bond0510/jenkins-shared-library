@@ -11,9 +11,10 @@ class DockerConfig {
     }
     
     @NonCPS
-    def imageName() {    
+    def imageName() {
+        echo yaml
          if (!this.yaml || !this.yaml['dockerImageName']) {
-            return "Dockerfile";
+            return "Dockerfile"
          }
         return yaml["dockerImageName"]
     }
