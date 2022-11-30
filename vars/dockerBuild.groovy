@@ -1,5 +1,5 @@
-import com.ec.jenkins.components.services.Configuration
-import com.ec.jenkins.components.services.Docker
+import com.ec.jenkins.components.services.parser.ConfigParser
+
 
 def call ( String env , String workDir) {
 
@@ -13,15 +13,18 @@ def call ( String env , String workDir) {
             pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
         }
     }
-    def dockerCfg = new Configuration(pipelineCfg , env ).getDockerConfig()
+    ProjectConfiguration projectConfig = ConfigParser.parse(pipelineCfg)
+
+    def dockerCfg = projectConfig.dockerConfig
+
     if (workDir == null){
-        buildDockerImage( dockerCfg.imageName , TAG_VERSION )
+        buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
     } else {
         dir(workDir) {
             buildDockerImage( dockerCfg.imageName.toLowerCase() , TAG_VERSION )
         }
     }
-    def tenancyNamespace = dockerCfg.tenancyNamespace
+    def tenancyNamespace = dockerCfg.tenancyNamespace(env)
     echo tenancyNamespace
 }
 
