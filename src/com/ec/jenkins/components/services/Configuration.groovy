@@ -18,7 +18,7 @@ class Configuration {
     Configuration (def pipelineCfg , String env=test ) {
         this.projectConfig = ConfigParser.parse(pipelineCfg)
         this.env = env
-       // steps.env.repoEnv = steps.sh(script: 'echo $env', returnStdout: true).trim()
+    // steps.env.repoEnv = steps.sh(script: 'echo $env', returnStdout: true).trim()
     }
 
     @NonCPS
@@ -34,19 +34,21 @@ class Configuration {
     def tenancyNamespace () {
         switch (env) {
             case 'dev':
-                return FULL_IMAGE_REPO_URL'/tstenv/'
+                return "${FULL_IMAGE_REPO_URL}" + '/tstenv/'
                 break
             case 'test':
-                return FULL_IMAGE_REPO_URL'/tstenv/'
+                /* groovylint-disable-next-line DuplicateStringLiteral */
+                return "${FULL_IMAGE_REPO_URL}"+'/tstenv/'
                 break
             case 'stage':
-                return FULL_IMAGE_REPO_URL'/stgenv/'
+                return "${FULL_IMAGE_REPO_URL}" + '/stgenv/'
                 break
             case 'prod' :
-                return FULL_IMAGE_REPO_URL'/prdenv/'
+                /* groovylint-disable-next-line ConsecutiveStringConcatenation */
+                return "${FULL_IMAGE_REPO_URL}" + '/prdenv/'
                 break
             default:
-                return FULL_IMAGE_REPO_URL'/tstenv/'
+                return "${FULL_IMAGE_REPO_URL}" + '/tstenv/'
                 break
         }
     }
