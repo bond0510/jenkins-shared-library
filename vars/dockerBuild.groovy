@@ -1,4 +1,5 @@
 import com.ec.jenkins.components.services.parser.ConfigParser
+import com.ec.jenkins.components.ProjectConfiguration
 
 
 def call ( String env , String workDir) {
