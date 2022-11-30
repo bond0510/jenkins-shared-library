@@ -18,15 +18,17 @@ def call ( String env , String workDir) {
 
     def dockerCfg = projectConfig.dockerConfig
 
+    String dockerImageName =  dockerCfg.imageName().toLowerCase();
     if (workDir == null){
-        buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
+        buildDockerImage( dockerImageName , TAG_VERSION )
     } else {
         dir(workDir) {
-            buildDockerImage( dockerCfg.imageName().toLowerCase() , TAG_VERSION )
+            buildDockerImage( dockerImageName , TAG_VERSION )
         }
     }
     def tenancyNamespace = dockerCfg.tenancyNamespace(env)
-    echo tenancyNamespace
+    def ocirDockerImageName = tenancyNamespace + dockerImageName
+    tagDockerImage(dockerImageName , ocirDockerImageName , TAG_VERSION)
 }
 
 def buildDockerImage( String imageName, String TAG_VERSION ){
@@ -38,11 +40,11 @@ def buildDockerImage( String imageName, String TAG_VERSION ){
 
 }
 
-def tagDockerImage( String imageName, String TAG_VERSION ){
+def tagDockerImage( String imageName, ocirDockerImageName,String TAG_VERSION ){
 
     List<String> tags = [TAG_VERSION ,'latest']
     tags.each { tag ->
-        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+        sh "docker tag ${imageName}:${tag} ${ocirDockerImageName}:${tag}"
     }
 
 }
