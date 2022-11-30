@@ -1,4 +1,4 @@
-import com.ec.jenkins.components.services.parser.ConfigParser
+import com.ec.jenkins.components.parser.ConfigParser
 import com.ec.jenkins.components.ProjectConfiguration
 
 
