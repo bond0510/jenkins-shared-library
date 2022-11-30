@@ -1,5 +1,6 @@
 import com.ec.jenkins.components.parser.ConfigParser
 import com.ec.jenkins.components.ProjectConfiguration
+import com.ec.jenkins.components.DockerConfig
 
 
 def call ( String env , String workDir) {
@@ -16,7 +17,7 @@ def call ( String env , String workDir) {
     }
     ProjectConfiguration projectConfig = ConfigParser.parse(pipelineCfg)
 
-    def dockerCfg = projectConfig.dockerConfig
+    DockerConfig dockerCfg = projectConfig.dockerConfig
 
     String dockerImageName =  dockerCfg.imageName.toLowerCase();
     if (workDir == null){

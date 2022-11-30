@@ -32,7 +32,7 @@ class ConfigParser {
 
     @NonCPS
     static def parseDockerConfig(def dockerConfig){
-        
+
         if (!this.dockerConfig || !this.dockerConfig['dockerImageName']) {
             return "Dockerfile"
         }
