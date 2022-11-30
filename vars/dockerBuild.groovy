@@ -27,9 +27,9 @@ def call ( String env , String workDir) {
 
 def buildDockerImage( String imageName, String TAG_VERSION ){
 
-    List<String> tags = [TAG_VERSION ,'latest']
+    List<String> tags = [TAG_VERSION.toLowerCase() ,'latest']
     tags.each { tag ->
-        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag}.toLowerCase() ."
+        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
     }
 
 }
