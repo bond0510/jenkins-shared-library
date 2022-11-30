@@ -22,7 +22,7 @@ def call ( String env , String workDir) {
         buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
     } else {
         dir(workDir) {
-            buildDockerImage( dockerCfg.imageName.toLowerCase() , TAG_VERSION )
+            buildDockerImage( dockerCfg.imageName().toLowerCase() , TAG_VERSION )
         }
     }
     def tenancyNamespace = dockerCfg.tenancyNamespace(env)
