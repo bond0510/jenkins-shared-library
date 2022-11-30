@@ -15,10 +15,10 @@ def call ( String env , String workDir) {
     }
     def dockerCfg = new Configuration(pipelineCfg , env ).getDockerConfig()
     if (workDir == null){
-        buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
+        buildDockerImage( dockerCfg.imageName , TAG_VERSION )
     } else {
         dir(workDir) {
-            buildDockerImage( dockerCfg.imageName() , TAG_VERSION )
+            buildDockerImage( dockerCfg.imageName.toLowerCase() , TAG_VERSION )
         }
     }
     def tenancyNamespace = dockerCfg.tenancyNamespace

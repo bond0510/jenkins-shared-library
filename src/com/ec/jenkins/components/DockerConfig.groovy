@@ -8,12 +8,6 @@ class DockerConfig {
     }
 
     String tenancyNamespace
+    String imageName
 
-    @NonCPS
-    def imageName() {    
-         if (!this.yaml || !this.yaml['dockerImageName']) {
-            return "Dockerfile";
-         }
-        return yaml["dockerImageName"]
-    }
 }
