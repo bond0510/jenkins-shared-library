@@ -9,11 +9,14 @@ def call ( Map args=[:] ) {
 
     DockerConfig dockerCfg = projectConfig.dockerConfig
 
-    String dockerImageName =  dockerCfg.imageName.toLowerCase();
-    if (workDir == null){
+    String dockerImageName =  dockerCfg.imageName.toLowerCase()
+
+    def workdir = args.workDir
+
+    if (workdir == null){
         buildDockerImage( dockerImageName , TAG_VERSION )
     } else {
-        dir(workDir) {
+        dir(workdir) {
             buildDockerImage( dockerImageName , TAG_VERSION )
         }
     }
