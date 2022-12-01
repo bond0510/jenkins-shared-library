@@ -29,14 +29,24 @@ def call(Map args=[:] ) {
                     }
                 }
             }
-           
+            stage("Process Pipeline Config") {
+                steps {
+                    script {
+                       config = pipelineCfg( config )
+                    }
+                }
+            }
             stage("Build Code") {
                 steps {
                     script {
                         if(args.workDir==null){
-                             new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
+                            TAG_VERSION = readMavenPom().getVersion()
+                            config.put ( 'TAG_VERSION' , TAG_VERSION)
+                            new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
                         } else {
                             dir(args.workDir) {
+                                TAG_VERSION = readMavenPom().getVersion()
+                                config.put ( 'TAG_VERSION' , TAG_VERSION)
                                 new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
                             }
                         }
@@ -47,7 +57,7 @@ def call(Map args=[:] ) {
             stage("SonarQube Analysis") {
                 steps {
                     script {
-                        if(args.workDir==null){
+                        if(args.workDir==null){ 
                             new Maven().sonarQubeAnalysis()
                         } else {
                             dir(args.workDir) {
