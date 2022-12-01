@@ -5,7 +5,7 @@ import com.ec.jenkins.components.parser.ConfigParser
 import com.ec.jenkins.components.*
 import com.ec.jenkins.components.services.*
 
-def call(Map args=[:]) {
+def call(Map args=[:], Closure body=null ) {
 
 	 pipeline {
         agent any
