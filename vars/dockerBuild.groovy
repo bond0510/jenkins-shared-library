@@ -55,7 +55,7 @@ def pushDockerImage ( String imageName, String TAG_VERSION ) {
 
 def tagDockerImage ( String imageName, ocirDockerImageName,String TAG_VERSION ) {
 
-    List<String> tags = [TAG_VERSION ,'latest']
+    List<String> tags = [TAG_VERSION.toLowerCase() ,'latest']
     tags.each { tag ->
         sh "docker tag ${imageName}:${tag} ${ocirDockerImageName}:${tag}"
     }
