@@ -13,7 +13,7 @@ def call( Map args=[:] ) {
                 env.fileName = prop.name
                 env.propertyKey = key
             }
-            sh ' echo >>> $fileName $propertyKey'
+            sh ' echo  $fileName $propertyKey '
         }
         
     }
