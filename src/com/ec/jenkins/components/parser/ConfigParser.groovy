@@ -16,6 +16,8 @@ class ConfigParser {
 
         projectConfiguration.properties = parseProperties(yaml.Properties)
 
+        projectConfiguration.secretes = parseProperties(yaml.Secretes)
+
         return projectConfiguration
      }
 
@@ -23,9 +25,8 @@ class ConfigParser {
     static def parseProperties(def properties) {
         List<Property> props = properties.collect { k, v ->
             Property property = new Property(name: k)
-            // a step can have one or more commands to execute
             v.each {
-                property.commands.add(it)
+                property.keys.add(it)
             }
             return property
         }

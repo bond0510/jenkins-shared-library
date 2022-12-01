@@ -4,5 +4,6 @@ class ProjectConfiguration {
 
     DockerConfig dockerConfig
     Properties properties;
+    Properties secretes;
 
 }

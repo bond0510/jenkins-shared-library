@@ -1,4 +1,3 @@
-import com.ec.jenkins.components.parser.ConfigParser
 import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.DockerConfig
 

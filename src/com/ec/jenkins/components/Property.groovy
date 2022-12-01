@@ -2,7 +2,7 @@ package com.ec.jenkins.components
 
 class Property {
 
-    List<String> commands = []
+    List<String> keys = []
     String name
 
 }
