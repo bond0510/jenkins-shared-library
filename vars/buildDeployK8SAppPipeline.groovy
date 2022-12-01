@@ -32,7 +32,7 @@ def call(Map args=[:] ) {
             stage("Process Pipeline Config") {
                 steps {
                     script {
-                       config = pipelineCfg( config )
+                       config = pipelineConfig( config )
                     }
                 }
             }
