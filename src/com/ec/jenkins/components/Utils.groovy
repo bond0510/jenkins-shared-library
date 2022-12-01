@@ -1,14 +1,18 @@
 package com.ec.jenkins.components;
 
-def parseConfig(Closure body) {
-    
-    def config = [:]
-    
-    if (body != null) {
-        body.resolveStrategy = Closure.DELEGATE_FIRST
-        body.delegate = config
-        body()
-    } 
+ static Map parseConfig(def body = [:]) {
 
-    return config
+    Map config = [:]
+        config = body
+        if (body in Map) {
+            config = body
+        } else if (body in Closure) {
+            body.resolveStrategy = Closure.DELEGATE_FIRST
+            body.delegate = config
+            body()
+        } else {
+            throw  new Exception(sprintf("Unsupported build config type:%s", [config.getClass()]))
+        }
+        return config
+    
 }

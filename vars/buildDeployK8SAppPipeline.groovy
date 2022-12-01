@@ -5,7 +5,9 @@ import com.ec.jenkins.components.parser.ConfigParser
 import com.ec.jenkins.components.*
 import com.ec.jenkins.components.services.*
 
-def call(Map args=[:], Closure body=null ) {
+def call(Map args=[:] ) {
+
+     config = Utils.parseConfig(body)
 
 	 pipeline {
         agent any
@@ -67,7 +69,7 @@ def call(Map args=[:], Closure body=null ) {
             stage("Process Properties") {
                 steps {
                     script {
-                        processProperties()
+                       println config.NAMESPACES
                     }
                 }
             }
