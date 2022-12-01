@@ -13,18 +13,20 @@ def call ( Map args=[:] ) {
 
     def workdir = args.workDir
 
+    def tagVersion = args.TAG_VERSION
+
     if (workdir == null){
-        buildDockerImage( dockerImageName , TAG_VERSION )
+        buildDockerImage( dockerImageName , tagVersion )
     } else {
         dir(workdir) {
-            buildDockerImage( dockerImageName , TAG_VERSION )
+            buildDockerImage( dockerImageName , tagVersion )
         }
     }
 
     def tenancyNamespace = dockerCfg.tenancyNamespace(env)
     def ocirDockerImageName = tenancyNamespace + dockerImageName
 
-    tagDockerImage(dockerImageName , ocirDockerImageName , TAG_VERSION)
+    tagDockerImage(dockerImageName , ocirDockerImageName , tagVersion)
 
 }
 
