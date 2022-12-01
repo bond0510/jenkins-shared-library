@@ -7,7 +7,7 @@ import com.ec.jenkins.components.services.*
 
 def call(Map args=[:] ) {
 
-     config = Utils.parseConfig(body)
+     config = Utils.parseConfig(args)
 
 	 pipeline {
         agent any
