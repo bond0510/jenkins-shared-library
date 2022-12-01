@@ -1,4 +1,4 @@
-import com.ec.jenkins.Utils
+import com.ec.jenkins.components.Utils
 
 def call(Closure body=null) {
 
