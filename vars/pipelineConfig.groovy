@@ -4,12 +4,12 @@ import com.ec.jenkins.components.ProjectConfiguration
 def call( Map args=[:] ) {
 
   def pipelineCfg
-
-  if (workDir == null){
+  def workdir=args.workDir
+  if (workdir == null){
       pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
   } else {
-    dir(workDir) {
-      pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
+    dir(workdir) {
+      pipelineCfg = readYaml(file: "${WORKSPACE}/${workdir}/pipeline.yaml")
     }
   }
   ProjectConfiguration projectConfig = ConfigParser.parse(pipelineCfg)
