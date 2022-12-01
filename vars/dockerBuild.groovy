@@ -1,8 +1,6 @@
 import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.DockerConfig
 
-private static String LATEST_STR = 'latest'
-
 void call ( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
     DockerConfig dockerCfg = projectConfig.dockerConfig
@@ -10,11 +8,12 @@ void call ( Map args=[:] ) {
     String workdir = args.workDir
     String tagVersion = args.TAG_VERSION
     String evnVal = args.env
+    List<String> tags = [tagVersion.toLowerCase() ,'latest']
     if (workdir == null) {
-        buildDockerImage( dockerImageName , tagVersion )
+        buildDockerImage( dockerImageName , tags )
     } else {
         dir(workdir) {
-            buildDockerImage( dockerImageName , tagVersion )
+            buildDockerImage( dockerImageName , tags )
         }
     }
 
@@ -24,8 +23,7 @@ void call ( Map args=[:] ) {
     tagDockerImage(dockerImageName , ocirDockerImageName , tagVersion)
 }
 
-void buildDockerImage ( String imageName, String tagVersion ) {
-    List<String> tags = [tagVersion.toLowerCase() ,LATEST_STR]
+void buildDockerImage ( String imageName, List<String> tags ) {
     tags.each { tag ->
         sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
     }
@@ -38,8 +36,7 @@ void pushDockerImage ( String imageName, String tagVersion ) {
     }
 }
 
-void tagDockerImage ( String imageName, String ocirDockerImageName, String tagVersion ) {
-    List<String> tags = [tagVersion.toLowerCase() ,LATEST_STR]
+void tagDockerImage ( String imageName, String ocirDockerImageName, List<String> tags ) {
     tags.each { tag ->
         sh "docker tag ${imageName}:${tag} ${ocirDockerImageName}:${tag}"
     }
