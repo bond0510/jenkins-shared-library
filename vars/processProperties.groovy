@@ -4,6 +4,7 @@ def call(Closure body=null) {
 
     def config = new Utils().parseConfig(body) 
     def jdkName = config?.jdkName ?: "jdk"
-    println jdkName
+    def namespace=config?.params.NAMESPACES
+    println jdkName namespace
 
 }
