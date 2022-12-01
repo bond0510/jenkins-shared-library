@@ -1,7 +1,7 @@
 import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.DockerConfig
 
-private string LATEST_STR = 'latest'
+private static String LATEST_STR = 'latest'
 
 void call ( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
