@@ -8,7 +8,14 @@ def call( Map args=[:] ) {
     List<Property> properties = projectConfig.properties.props
     properties.each { prop ->
         println prop.name
-        prop.keys.each { key -> println key }
+        prop.keys.each { key -> 
+            script{
+                env.fileName = prop.name
+                env.propertyKey = key
+            }
+            sh ' >>> echo $fileName $propertyKey'
+        }
+        
     }
 
 }
