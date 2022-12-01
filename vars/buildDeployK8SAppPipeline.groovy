@@ -79,7 +79,7 @@ def call(Map args=[:] ) {
             stage("Process Properties") {
                 steps {
                     script {
-                       println config.NAMESPACES
+                       processProperties( config )
                     }
                 }
             }
