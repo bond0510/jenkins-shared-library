@@ -6,58 +6,56 @@ import com.ec.jenkins.components.*
 import com.ec.jenkins.components.services.*
 
 def call(Map args=[:] ) {
+    config = Utils.parseConfig(args)
 
-     config = Utils.parseConfig(args)
-
-	 pipeline {
+    pipeline {
         agent any
 
-		environment {
+        environment {
             BRANCH_NAME = "${BRANCH_NAME}"
             WORKSPACE = "${WORKSPACE}"
             BUILD_NUMBER = "${BUILD_NUMBER}"
         }
 
-		stages {
-		
-			stage("Checkout Source Code") {
+        stages {
+            stage('Checkout Source Code') {
                 steps {
                     script {
                         repoUrl = "${args.repo}"
                         env = "${args.env}"
-                        checkoutSourceCode(repoUrl,env)
+                        checkoutSourceCode(repoUrl, env)
                     }
                 }
             }
-            stage("Process Pipeline Config") {
+            stage('Process Pipeline Config') {
                 steps {
                     script {
-                       config = pipelineConfig( config )
+                        config = pipelineConfig( config )
                     }
                 }
             }
-            stage("Build Code") {
+            stage('Build Code') {
                 steps {
                     script {
-                        if(args.workDir==null){
+                        if (args.workDir == null) {
                             TAG_VERSION = readMavenPom().getVersion()
                             config.put ( 'TAG_VERSION' , TAG_VERSION)
-                            new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
+                            new Maven().executeCommand('clean package', "${args.skipTest}".toBoolean())
                         } else {
                             dir(args.workDir) {
                                 TAG_VERSION = readMavenPom().getVersion()
                                 config.put ( 'TAG_VERSION' , TAG_VERSION)
-                                new Maven().executeCommand('clean package',"${args.skipTest}".toBoolean())
+                                new Maven().executeCommand('clean package', "${args.skipTest}".toBoolean())
                             }
                         }
                     }
                 }
             }
 
-            stage("SonarQube Analysis") {
+            stage('SonarQube Analysis') {
                 steps {
                     script {
-                        if(args.workDir==null){ 
+                        if (args.workDir == null) {
                             new Maven().sonarQubeAnalysis()
                         } else {
                             dir(args.workDir) {
@@ -68,7 +66,7 @@ def call(Map args=[:] ) {
                 }
             }
 
-            stage("Build Docker Image") {
+            stage('Build Docker Image') {
                 steps {
                     script {
                         dockerBuild( config )
@@ -76,16 +74,13 @@ def call(Map args=[:] ) {
                 }
             }
 
-            stage("Process Properties") {
+            stage('Process Properties') {
                 steps {
                     script {
-                       processProperties( config )
+                        processProperties( config )
                     }
                 }
             }
-			
-		}
-		
-	}
-
+        }
+    }
 }

@@ -1,22 +1,16 @@
 import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.DockerConfig
 
+private string LATEST_STR = 'latest'
 
-def call ( Map args=[:] ) {
-
+void call ( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
-
     DockerConfig dockerCfg = projectConfig.dockerConfig
-
     String dockerImageName =  dockerCfg.imageName.toLowerCase()
-
-    def workdir = args.workDir
-
-    def tagVersion = args.TAG_VERSION
-
-    def evnVal= args.env
-
-    if (workdir == null){
+    String workdir = args.workDir
+    String tagVersion = args.TAG_VERSION
+    String evnVal = args.env
+    if (workdir == null) {
         buildDockerImage( dockerImageName , tagVersion )
     } else {
         dir(workdir) {
@@ -24,36 +18,29 @@ def call ( Map args=[:] ) {
         }
     }
 
-    def tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
-    def ocirDockerImageName = tenancyNamespace + dockerImageName
+    String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
+    String ocirDockerImageName = tenancyNamespace + dockerImageName
 
     tagDockerImage(dockerImageName , ocirDockerImageName , tagVersion)
-
 }
 
-def buildDockerImage ( String imageName, String TAG_VERSION ) {
-
-    List<String> tags = [TAG_VERSION.toLowerCase() ,'latest']
+void buildDockerImage ( String imageName, String tagVersion ) {
+    List<String> tags = [tagVersion.toLowerCase() ,LATEST_STR]
     tags.each { tag ->
         sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
     }
-
 }
 
-def pushDockerImage ( String imageName, String TAG_VERSION ) {
-
-    List<String> tags = [TAG_VERSION.toLowerCase() ,'latest']
+void pushDockerImage ( String imageName, String tagVersion ) {
+    List<String> tags = [tagVersion.toLowerCase() ,LATEST_STR]
     tags.each { tag ->
         sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
     }
-
 }
 
-def tagDockerImage ( String imageName, ocirDockerImageName,String TAG_VERSION ) {
-
-    List<String> tags = [TAG_VERSION.toLowerCase() ,'latest']
+void tagDockerImage ( String imageName, String ocirDockerImageName, String tagVersion ) {
+    List<String> tags = [tagVersion.toLowerCase() ,LATEST_STR]
     tags.each { tag ->
         sh "docker tag ${imageName}:${tag} ${ocirDockerImageName}:${tag}"
     }
-
 }

@@ -9,7 +9,7 @@ import com.ec.jenkins.components.DockerConfig
 class ConfigParser {
 
      @NonCPS
-     static ProjectConfiguration parse(def yaml) {
+    static ProjectConfiguration parse( Map yaml ) {
         ProjectConfiguration projectConfiguration = new ProjectConfiguration()
 
         projectConfiguration.dockerConfig = parseDockerConfig( yaml.DockerConfig )
@@ -19,23 +19,22 @@ class ConfigParser {
         projectConfiguration.secretes = parseProperties(yaml.Secretes)
 
         return projectConfiguration
-     }
+    }
 
     @NonCPS
-    static def parseProperties(def properties) {
+    static Properties parseProperties(Map properties) {
         List<Property> props = properties.collect { k, v ->
             Property property = new Property(name: k)
             v.each {
-                property.keys.add(it)
+                property.keys.add (it)
             }
             return property
         }
         return new Properties(props: props)
     }
-
+    
     @NonCPS
-    static def parseDockerConfig(def dockerConfig){
-
+    static DockerConfig parseDockerConfig(Map dockerConfig){
         if (!dockerConfig || !dockerConfig['dockerImageName']) {
             return "Dockerfile"
         }

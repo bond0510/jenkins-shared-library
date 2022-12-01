@@ -1,28 +1,28 @@
 package com.ec.jenkins.components.services
 
-def checkout(String url=null, String env=test) {
-        if (url == null) {
-            checkout scm
+void checkout(String url=null, String env=test) {
+    if (url == null) {
+        checkout scm
         } else {
-            switch (env) {
+        switch (env) {
                 case 'dev':
-                    branch = 'refs/heads/develop'
-                    break
+                branch = 'refs/heads/develop'
+                break
                 case 'test':
-                    branch = 'refs/heads/test'
-                    break
+                branch = 'refs/heads/test'
+                break
                 case 'stage':
-                    branch = 'refs/heads/stage'
-                    break
+                branch = 'refs/heads/stage'
+                break
                 case 'prod' :
-                    branch = 'refs/heads/master'
-                    break
+                branch = 'refs/heads/master'
+                break
                 default:
                     branch = 'refs/heads/develop'
-                    break
-            }
-            echo "${branch}"
-            checkout poll: true, scm: [
+                break
+        }
+        echo "${branch}"
+        checkout poll: true, scm: [
                                         $class: 'GitSCM',
                                         branches: [
                                                     [name: branch]
@@ -34,5 +34,5 @@ def checkout(String url=null, String env=test) {
                                                                 [credentialsId: 'Bitbucket_SSHkey', url: url]
                                                             ]
                                     ]
-        }
+    }
 }

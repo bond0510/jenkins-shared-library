@@ -6,32 +6,16 @@ class DockerConfig {
 
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
-    
-    
-    @NonCPS
-    def imageName() {
-  
-         if (!this.yaml || !this.yaml['dockerImageName']) {
-            return "Dockerfile"
-         }
-        return yaml["dockerImageName"]
-    }
-
-    def tenancyNamespace (String env ) {
-         switch (env) {
+    String tenancyNamespace (String env ) {
+        switch (env) {
             case ['dev' ,'test']:
-                return "${FULL_IMAGE_REPO_URL}" + 'tstenv/'
-                break
+                return "${FULL_IMAGE_REPO_URL}tstenv/"
             case 'stage':
-                return "${FULL_IMAGE_REPO_URL}" + 'stgenv/'
-                break
+                return "${FULL_IMAGE_REPO_URL}stgenv/"
             case 'prod' :
-                /* groovylint-disable-next-line ConsecutiveStringConcatenation */
-                return "${FULL_IMAGE_REPO_URL}" + 'prdenv/'
-                break
+                return "${FULL_IMAGE_REPO_URL}prdenv/"
             default:
-                return "${FULL_IMAGE_REPO_URL}" + 'tstenv/'
-                break
+                return "${FULL_IMAGE_REPO_URL}tstenv/"
         }
     }
 }
