@@ -3,19 +3,9 @@ import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.DockerConfig
 
 
-def call ( String env , String workDir) {
+def call ( Map args=[:] ) {
 
-    def pipelineCfg
-    if (workDir == null){
-        TAG_VERSION = readMavenPom().getVersion()
-        pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
-    } else {
-        dir(workDir) {
-            TAG_VERSION = readMavenPom().getVersion()
-            pipelineCfg = readYaml(file: "${WORKSPACE}/${workDir}/pipeline.yaml")
-        }
-    }
-    ProjectConfiguration projectConfig = ConfigParser.parse(pipelineCfg)
+    ProjectConfiguration projectConfig = args?.projectConfig
 
     DockerConfig dockerCfg = projectConfig.dockerConfig
 
