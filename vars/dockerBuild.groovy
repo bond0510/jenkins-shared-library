@@ -20,7 +20,7 @@ void call ( Map args=[:] ) {
     String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
     String ocirDockerImageName = tenancyNamespace + dockerImageName
 
-    tagDockerImage(dockerImageName , ocirDockerImageName , tagVersion)
+    tagDockerImage(dockerImageName , ocirDockerImageName , tags)
 }
 
 void buildDockerImage ( String imageName, List<String> tags ) {
