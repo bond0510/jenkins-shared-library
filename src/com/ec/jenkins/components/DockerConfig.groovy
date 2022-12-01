@@ -6,6 +6,17 @@ class DockerConfig {
 
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
+    
+    
+    @NonCPS
+    def imageName() {
+  
+         if (!this.yaml || !this.yaml['dockerImageName']) {
+            return "Dockerfile"
+         }
+        return yaml["dockerImageName"]
+    }
+
     def tenancyNamespace (String env ) {
          switch (env) {
             case ['dev' ,'test']:
