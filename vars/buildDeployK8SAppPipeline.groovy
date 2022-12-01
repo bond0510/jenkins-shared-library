@@ -71,7 +71,7 @@ def call(Map args=[:] ) {
             stage("Build Docker Image") {
                 steps {
                     script {
-                        dockerBuild("${args.env}", "${args.workDir}")
+                        dockerBuild( config )
                     }
                 }
             }
