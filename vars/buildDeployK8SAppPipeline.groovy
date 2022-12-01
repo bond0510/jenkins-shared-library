@@ -63,6 +63,14 @@ def call(Map args=[:]) {
                     }
                 }
             }
+
+            stage("Process Properties") {
+                steps {
+                    script {
+                        processProperties(this)
+                    }
+                }
+            }
 			
 		}
 		
