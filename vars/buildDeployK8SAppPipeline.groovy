@@ -1,4 +1,3 @@
-
 import java.lang.String
 import java.util.Map
 import com.ec.jenkins.components.parser.ConfigParser
@@ -75,6 +74,30 @@ def call(Map args=[:] ) {
             }
 
             stage('Process Properties') {
+                steps {
+                    script {
+                        processProperties( config )
+                    }
+                }
+            }
+
+            stage('Process Secretes') {
+                steps {
+                    script {
+                        processProperties( config )
+                    }
+                }
+            }
+
+            stage('Deploy on Kubernetes') {
+                steps {
+                    script {
+                        processProperties( config )
+                    }
+                }
+            }
+
+            stage('Container Status') {
                 steps {
                     script {
                         processProperties( config )
