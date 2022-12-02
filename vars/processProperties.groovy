@@ -12,6 +12,8 @@ void call( Map args=[:] ) {
                     env.fileName = prop.name
                     if ( args?.containsKey (key) ) {
                         env.propertyKey = key
+                        value = args?.get (key)
+                        println "${key} value is ${value}"
                     } else {
                         println "No property defined for ${key}"
                     }
