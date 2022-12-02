@@ -6,7 +6,8 @@ void call( Map args=[:] ) {
     List<Property> propertyList = projectConfig?.properties?.props
     println args.param.MESSAGING_SERVER
     for (entry in args.param) {
-        println entry.key entry?.value.toString
+        keyName = entry.key
+        println entry.key args.param.keyName
     }
     if ( propertyList != null ) {
         propertyList.each { prop ->
