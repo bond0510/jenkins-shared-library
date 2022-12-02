@@ -16,15 +16,11 @@ void call ( Map args=[:] ) {
             buildDockerImage( dockerImageName , tags )
         }
     }
-    
+
     stage('Tag Docker Image') {
-        steps {
-            script {
-                String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
-                String ocirDockerImageName = tenancyNamespace + dockerImageName
-                tagDockerImage(dockerImageName , ocirDockerImageName , tags)
-            }
-        }
+        String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
+        String ocirDockerImageName = tenancyNamespace + dockerImageName
+        tagDockerImage(dockerImageName , ocirDockerImageName , tags)
     }
 }
 
