@@ -5,14 +5,16 @@ void call( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
     List<Property> propertyList = projectConfig?.properties?.props
     println args.param.MESSAGING_SERVER
+    args.param.each { key, value ->
+        println key value
+    }
     if ( propertyList != null ) {
         propertyList.each { prop ->
             println prop.name
             prop.keys.each { key ->
                 script {
                     env.fileName = prop.name
-                    println args.param.key
-                    if ( args?.param?.containsKey (key) ) {
+                    if ( args?.containsKey (key) ) {
                         env.propertyKey = key
                     } else {
                         println "No property defined for ${key}"
