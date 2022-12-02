@@ -3,10 +3,10 @@ import com.ec.jenkins.components.Property
 
 void call( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
-    List<Property> properties = projectConfig?.properties?.props
+    List<Property> propertyList = projectConfig?.properties?.props
     println args.param.NAMESPACES
-    if ( properties?.empty ) {
-        properties.each { prop ->
+    if ( propertyList?.empty ) {
+        propertyList.each { prop ->
             println prop.name
             prop.keys.each { key ->
                 script {
