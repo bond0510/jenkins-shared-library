@@ -1,6 +1,6 @@
 package com.ec.jenkins.components.services
 
-void executeCommand(String command, boolean isSkipTest, Closure body=null) {
+void executeCommand(String command, boolean isSkipTest) {
     echo command
     withEnv([ 'JAVA_HOME=/usr/java/jdk' ]) {
                 sh 'pwd'
@@ -15,7 +15,7 @@ void executeCommand(String command, boolean isSkipTest, Closure body=null) {
     }
 }
 
-void sonarQubeAnalysis ( Closure body=null ) {
+void sonarQubeAnalysis ( ) {
     withEnv([ 'JAVA_HOME=/usr/java/jdk' ]) {
             withSonarQubeEnv('Sonarqube web server') {
                 sh './mvnw sonar:sonar '
