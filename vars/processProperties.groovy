@@ -3,19 +3,24 @@ import com.ec.jenkins.components.Property
 
 void call( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
-    List<Property> properties = projectConfig.properties.props
-    properties.each { prop ->
-        println prop.name
-        prop.keys.each { key ->
-            script {
-                env.fileName = prop.name
-                if ( args.containsKey (key) ) {
-                    env.propertyKey = key
-                } else {
-                    println "No property defined for ${key}"
+    List<Property> properties = projectConfig?.properties?.props
+    println args.param.NAMESPACES
+    if ( properties?.empty ) {
+        properties.each { prop ->
+            println prop.name
+            prop.keys.each { key ->
+                script {
+                    env.fileName = prop.name
+                    if ( args.containsKey (key) ) {
+                        env.propertyKey = key
+                    } else {
+                        println "No property defined for ${key}"
+                    }
                 }
+                sh ' echo  $fileName $propertyKey '
             }
-            sh ' echo  $fileName $propertyKey '
         }
+    } else {
+        println 'No properties are configured for this pipeline'
     }
 }

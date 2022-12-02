@@ -13,9 +13,10 @@ class DockerConfig {
             case 'stage':
                 return "${FULL_IMAGE_REPO_URL}stgenv/"
             case 'prod' :
-                return "${FULL_IMAGE_REPO_URL}prdenv/"
+                return "${FULL_IMAGE_REPO_URL}proenv/"
             default:
                 return "${FULL_IMAGE_REPO_URL}tstenv/"
         }
     }
+
 }
