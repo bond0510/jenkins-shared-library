@@ -5,13 +5,15 @@ void call( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
     List<Property> propertyList = projectConfig?.properties?.props
     println args.param.NAMESPACES
+    Map params = args.param
     if ( propertyList != null ) {
         propertyList.each { prop ->
             println prop.name
             prop.keys.each { key ->
                 script {
                     env.fileName = prop.name
-                    if ( args.containsKey (key) ) {
+                    println params.key
+                    if ( params.containsKey (key) ) {
                         env.propertyKey = key
                     } else {
                         println "No property defined for ${key}"
