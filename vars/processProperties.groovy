@@ -5,7 +5,7 @@ void call( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
     List<Property> propertyList = projectConfig?.properties?.props
     println args.param.NAMESPACES
-    if ( propertyList?.empty ) {
+    if ( propertyList != null ) {
         propertyList.each { prop ->
             println prop.name
             prop.keys.each { key ->
