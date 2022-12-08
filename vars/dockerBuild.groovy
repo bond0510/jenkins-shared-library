@@ -58,5 +58,5 @@ void tagDockerImage ( String imageName, String ocirDockerImageName, List<String>
 
 String getTimeStamp() {
    Date date = new Date()
-   return date.format('yyyyMMddHHmmss',TimeZone.getTimeZone("UTC")) as String
+   return date.format('yyyy-MM-dd:HH:mm:ss',TimeZone.getTimeZone('UTC')) as String
 }
