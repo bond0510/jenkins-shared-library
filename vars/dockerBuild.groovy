@@ -28,9 +28,7 @@ void buildDockerImage ( String imageName, List<String> tags ) {
     deleteDockerImage(imageName,tags)
     currentTime = getTimeStamp()
     tags.each { tag ->
-        sh """
-            docker build --build-arg BUILD_DATE= ${currentTime} --file=docker/Dockerfile.remote  -t ${imageName}:${tag} .
-        """
+        sh "docker build --build-arg BUILD_DATE=${currentTime} --file=docker/Dockerfile.remote  -t ${imageName}:${tag}."
     }
 }
 
