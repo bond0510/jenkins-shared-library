@@ -1,5 +1,6 @@
 import com.ec.jenkins.components.ProjectConfiguration
 import com.ec.jenkins.components.DockerConfig
+import java.time.*
 
 void call ( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
@@ -41,11 +42,11 @@ void deleteDockerImage (String imageName, List<String> tags){
     }
 }
 
-void pushDockerImage ( String ocirDockerImageName, tags ) {
+void pushDockerImage ( String ocirDockerImageName, List<String> tags ) {
     tags.each { tag ->
         withDockerRegistry(credentialsId: 'oicr_creds', url: 'https://fra.ocir.io'){
             sh "docker push ${ocirDockerImageName}:${tag}"
-          }
+        }
     }
 }
 
