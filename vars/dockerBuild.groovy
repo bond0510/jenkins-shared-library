@@ -25,9 +25,10 @@ void call ( Map args=[:] ) {
 
 void buildDockerImage ( String imageName, List<String> tags ) { 
     deleteDockerImage(imageName,tags)
+    currentTime = sh(returnStdout: true, script: 'date +%Y-%m-%dT%H:%M:%SZ').trim()
     tags.each { tag ->
         sh """
-            docker build --file=docker/Dockerfile.remote --build-arg BUILD_DATE= ${date -u +'%Y-%m-%dT%H:%M:%SZ'} -t ${imageName}:${tag} ."
+            docker build --file=docker/Dockerfile.remote --build-arg BUILD_DATE= ${currentTime} -t ${imageName}:${tag} ."
         """
     }
 }
