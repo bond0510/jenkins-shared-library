@@ -20,14 +20,18 @@ void call ( Map args=[:] ) {
 }
 
 void buildDockerImage ( String imageName, List<String> tags ) { 
-    tags.each { tag ->
-        sh """
-            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && docker images  ${imageName}:${tag}  | xargs --no-run-if-empty docker rmi -f || echo NO
-
-        """
-    }
+    deleteDockerImage(imageName,tags)
     tags.each { tag ->
         sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+    }
+}
+
+void deleteDockerImage (String imageName, List<String> tags){
+    tags.each { tag ->
+        sh """
+            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && docker images  ${imageName}:${tag} --filter=reference=image_name --format "{{.ID}}" | xargs --no-run-if-empty docker rmi -f || echo NO
+
+        """
     }
 }
 
