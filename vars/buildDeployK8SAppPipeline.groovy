@@ -10,19 +10,13 @@ def call(Map args=[:] ) {
     pipeline {
         agent any
 
-        environment {
-            BRANCH_NAME = "${BRANCH_NAME}"
-            WORKSPACE = "${WORKSPACE}"
-            BUILD_NUMBER = "${BUILD_NUMBER}"
-        }
-
         stages {
             stage('Checkout Source Code') {
                 steps {
                     script {
                         repoUrl = "${args.repo}"
                         env = "${args.env}"
-                        checkoutSourceCode(repoUrl, env)
+                        checkoutSourceCode(config)
                     }
                 }
             }

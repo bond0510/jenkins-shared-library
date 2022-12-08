@@ -26,7 +26,7 @@ void call ( Map args=[:] ) {
 void buildDockerImage ( String imageName, List<String> tags ) { 
     deleteDockerImage(imageName,tags)
     tags.each { tag ->
-        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+        sh "docker build --file=docker/Dockerfile.remote --build-arg BUILD_DATE= $(date -u +'%Y-%m-%dT%H:%M:%SZ') -t ${imageName}:${tag} ."
     }
 }
 

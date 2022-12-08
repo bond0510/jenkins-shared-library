@@ -1,7 +1,7 @@
 import com.ec.jenkins.components.services.Git
 
-def call ( String url=null, String env='dev') {
+def call ( Map args=[:]) {
 
-    new Git().checkout(url, env)
+    new Git().checkout(args)
 
 }
