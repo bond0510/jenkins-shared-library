@@ -22,7 +22,7 @@ void call ( Map args=[:] ) {
 void buildDockerImage ( String imageName, List<String> tags ) {
     tags.each { tag ->
         sh """
-            docker images  ${imageName}:${tag} | xargs docker rmi
+            docker images  ${imageName}:${tag} | xargs --no-run-if-empty docker rmi -f
             docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} .
         """
     }
