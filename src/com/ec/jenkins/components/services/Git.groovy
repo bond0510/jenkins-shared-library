@@ -2,12 +2,13 @@ package com.ec.jenkins.components.services
 
 void checkout(Map args=[:]) {
     url = args?.repo
-    env = args?.env
-    println url env
+    environment = args?.env
+    println url 
+    println environment 
     if (url == null) {
       checkout scm
     } else {
-        switch (env) {
+        switch (environment ) {
                 case 'dev':
                 branch = 'refs/heads/develop'
                 break
