@@ -9,8 +9,9 @@ void call ( Map args=[:] ) {
     String tagVersion = args.TAG_VERSION
     String evnVal = args.env
     List<String> tags = [tagVersion.toLowerCase() ,'latest']
+    String commitID = args.GIT_COMMIT
     dir(args.workingDirectory) {
-        buildDockerImage( dockerImageName , tags )
+        buildDockerImage( dockerImageName,tags,commitID.trim(),tagVersion.trim() )
     }
     stage('Tag Docker Image') {
         String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
@@ -24,11 +25,11 @@ void call ( Map args=[:] ) {
     }
 }
 
-void buildDockerImage ( String imageName, List<String> tags ) { 
+void buildDockerImage ( String imageName, List<String> tags,String commitID,String buildVersion ) { 
     deleteDockerImage(imageName,tags)
-    currentTime = getTimeStamp().trim()
+    String currentTime = getTimeStamp().trim()
     tags.each { tag ->
-        sh "docker build --build-arg BUILD_DATE=${currentTime} --file=docker/Dockerfile.remote  -t ${imageName}:${tag} ."
+        sh "docker build --build-arg BUILD_DATE=${currentTime} --build-arg VCS_REF=${commitID} --build-arg BUILD_VERSION=${buildVersion} --file=docker/Dockerfile.remote  -t ${imageName}:${tag} ."
     }
 }
 
