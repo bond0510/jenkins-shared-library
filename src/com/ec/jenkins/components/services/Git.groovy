@@ -1,8 +1,8 @@
 package com.ec.jenkins.components.services
 
 void checkout(Map args=[:]) {
-    url = args?.repo
-    environment = args?.env
+    url = args.repo
+    environment = args.env
     println url 
     println environment 
     if (url == null) {
