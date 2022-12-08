@@ -29,7 +29,7 @@ void buildDockerImage ( String imageName, List<String> tags ) {
     currentTime = getTimeStamp()
     tags.each { tag ->
         sh """
-            docker build --file=docker/Dockerfile.remote --build-arg BUILD_DATE= ${currentTime} -t ${imageName}:${tag} .
+            docker build --build-arg BUILD_DATE= ${currentTime} --file=docker/Dockerfile.remote  -t ${imageName}:${tag} .
         """
     }
 }
