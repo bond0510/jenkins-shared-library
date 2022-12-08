@@ -6,9 +6,11 @@ Map call( Map args=[:] ) {
   String workdir = args.workDir
   if (workdir == null) {
     pipelineCfg = readYaml(file: "${WORKSPACE}/pipeline.yaml")
+    args.put('workingDirectory', "${ WORKSPACE}" )
   } else {
     dir(workdir) {
       pipelineCfg = readYaml(file: "${WORKSPACE}/${workdir}/pipeline.yaml")
+      args.put('workingDirectory', "${WORKSPACE }/${workdir }" )
     }
   }
   ProjectConfiguration projectConfig = ConfigParser.parse(pipelineCfg)

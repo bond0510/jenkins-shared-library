@@ -32,7 +32,7 @@ class ConfigParser {
         }
         return new Properties(props: props)
     }
-    
+
     @NonCPS
     static DockerConfig parseDockerConfig(Map dockerConfig){
         if (!dockerConfig || !dockerConfig['dockerImageName']) {

@@ -5,16 +5,11 @@ void call ( Map args=[:] ) {
     ProjectConfiguration projectConfig = args?.projectConfig
     DockerConfig dockerCfg = projectConfig.dockerConfig
     String dockerImageName =  dockerCfg.imageName.toLowerCase()
-    String workdir = args.workDir
     String tagVersion = args.TAG_VERSION
     String evnVal = args.env
     List<String> tags = [tagVersion.toLowerCase() ,'latest']
-    if (workdir == null) {
+    dir(args.workingDirectory) {
         buildDockerImage( dockerImageName , tags )
-    } else {
-        dir(workdir) {
-            buildDockerImage( dockerImageName , tags )
-        }
     }
 
     stage('Tag Docker Image') {

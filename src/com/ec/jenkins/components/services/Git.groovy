@@ -22,7 +22,7 @@ void checkout(String url=null, String env=test) {
                 break
         }
         echo "${branch}"
-        checkout poll: true, scm: [
+        def scmVars = checkout poll: true, scm: [
                                         $class: 'GitSCM',
                                         branches: [
                                                     [name: branch]
@@ -34,5 +34,9 @@ void checkout(String url=null, String env=test) {
                                                                 [credentialsId: 'Bitbucket_SSHkey', url: url]
                                                             ]
                                     ]
+
+        // Display the variable using scmVars
+        echo "scmVars.GIT_COMMIT"
+        echo "${scmVars.GIT_COMMIT}"
     }
 }

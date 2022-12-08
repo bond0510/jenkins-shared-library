@@ -36,16 +36,10 @@ def call(Map args=[:] ) {
             stage('Build Code') {
                 steps {
                     script {
-                        if (args.workDir == null) {
+                        dir(args.workingDirectory) {
                             TAG_VERSION = readMavenPom().getVersion()
                             config.put ( 'TAG_VERSION' , TAG_VERSION)
                             new Maven().executeCommand('clean package', "${args.skipTest}".toBoolean())
-                        } else {
-                            dir(args.workDir) {
-                                TAG_VERSION = readMavenPom().getVersion()
-                                config.put ( 'TAG_VERSION' , TAG_VERSION)
-                                new Maven().executeCommand('clean package', "${args.skipTest}".toBoolean())
-                            }
                         }
                     }
                 }
@@ -54,12 +48,8 @@ def call(Map args=[:] ) {
             stage('SonarQube Analysis') {
                 steps {
                     script {
-                        if (args.workDir == null) {
+                        dir(args.workingDirectory) {
                             new Maven().sonarQubeAnalysis()
-                        } else {
-                            dir(args.workDir) {
-                                new Maven().sonarQubeAnalysis()
-                            }
                         }
                     }
                 }
@@ -84,7 +74,7 @@ def call(Map args=[:] ) {
             stage('Process Secretes') {
                 steps {
                     script {
-                        processProperties( config )
+                        processSecretes( config )
                     }
                 }
             }
