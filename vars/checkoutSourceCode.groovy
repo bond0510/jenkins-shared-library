@@ -1,8 +1,6 @@
 import com.ec.jenkins.components.services.Git
 
 def call ( Map args=[:]) {
-    println args.repo 
-    println args.env
-    new Git().checkout(args)
-
+    Map scmVars= new Git().checkout(args.repo, args.env)
+    args.put('GIT_COMMIT',"${scmVars.GIT_COMMIT}")
 }

@@ -1,14 +1,11 @@
 package com.ec.jenkins.components.services
 
-void checkout(Map args=[:]) {
-    url = args.repo
-    environment = args.env
-    println url 
-    println environment 
+Map checkout(String url=null, String env=test) {
+    Map scmVars
     if (url == null) {
-      checkout scm
+        scmVars = checkout scm
     } else {
-        switch (environment ) {
+        switch (env) {
                 case 'dev':
                 branch = 'refs/heads/develop'
                 break
@@ -26,7 +23,7 @@ void checkout(Map args=[:]) {
                 break
         }
         echo "${branch}"
-        def scmVars = checkout poll: true, scm: [
+        scmVars = checkout poll: true, scm: [
                                         $class: 'GitSCM',
                                         branches: [
                                                     [name: branch]
@@ -39,7 +36,6 @@ void checkout(Map args=[:]) {
                                                             ]
                                     ]
 
-        echo "${scmVars.GIT_COMMIT}"
-        args.put('GIT_COMMIT',"${scmVars.GIT_COMMIT}")
     }
+    return scmVars
 }
