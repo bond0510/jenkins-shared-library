@@ -11,11 +11,15 @@ void call ( Map args=[:] ) {
     dir(args.workingDirectory) {
         buildDockerImage( dockerImageName , tags )
     }
-
     stage('Tag Docker Image') {
         String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
         String ocirDockerImageName = tenancyNamespace + dockerImageName
         tagDockerImage(dockerImageName , ocirDockerImageName , tags)
+    }
+    stage('Push Docker Image') {
+        String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
+        String ocirDockerImageName = tenancyNamespace + dockerImageName
+        pushDockerImage(ocirDockerImageName,tags)
     }
 }
 
@@ -29,16 +33,16 @@ void buildDockerImage ( String imageName, List<String> tags ) {
 void deleteDockerImage (String imageName, List<String> tags){
     tags.each { tag ->
         sh """
-            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && docker images  ${imageName}:${tag} --filter=reference=image_name --format "{{.ID}}" | xargs --no-run-if-empty docker rmi -f || echo NO
-
+            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && docker images  ${imageName}:${tag} --filter=reference=image_name --format "{{.ID}}" | xargs --no-run-if-empty docker rmi -f 
         """
     }
 }
 
-void pushDockerImage ( String imageName, String tagVersion ) {
-    List<String> tags = [tagVersion.toLowerCase() ,LATEST_STR]
+void pushDockerImage ( String ocirDockerImageName, tags ) {
     tags.each { tag ->
-        sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
+        withDockerRegistry(credentialsId: 'oicr_creds', url: 'https://fra.ocir.io'){
+            sh "docker push ${ocirDockerImageName}:${tag}"
+          }
     }
 }
 
