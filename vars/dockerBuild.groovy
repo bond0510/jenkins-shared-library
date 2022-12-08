@@ -33,7 +33,7 @@ void buildDockerImage ( String imageName, List<String> tags ) {
 void deleteDockerImage (String imageName, List<String> tags){
     tags.each { tag ->
         sh """
-            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && docker images  ${imageName}:${tag} --filter=reference=image_name --format "{{.ID}}" | xargs --no-run-if-empty docker rmi -f 
+            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && docker images  ${imageName}:${tag} --filter=reference=image_name --format "{{.ID}}" | xargs --no-run-if-empty docker rmi -f || echo NO
         """
     }
 }
