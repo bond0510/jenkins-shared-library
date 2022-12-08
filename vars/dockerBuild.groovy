@@ -19,8 +19,15 @@ void call ( Map args=[:] ) {
     }
 }
 
-void buildDockerImage ( String imageName, List<String> tags ) {
-    sh "docker images  ${imageName} | xargs --no-run-if-empty docker rmi -f"
+void buildDockerImage ( String imageName, List<String> tags ) { 
+    tags.each { tag ->
+        sh """
+            docker image inspect ${imageName}:${tag} >/dev/null 2>&1 && imagePresent==true|| imagePresent==false
+            if [[$imagePresent]]; then
+               docker images  ${imageName}:${tag}  | xargs --no-run-if-empty docker rmi -f 
+            fi
+        """
+    }
     tags.each { tag ->
         sh "docker build --file=docker/Dockerfile.remote -t ${imageName}:${tag} ."
     }
