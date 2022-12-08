@@ -1,8 +1,9 @@
 package com.ec.jenkins.components.services
 
 void checkout(Map args=[:]) {
-    url = "${args.repo}"
-    env = "${args.env}"
+    url = args?.repo
+    env = args?.env
+    println url env
     if (url == null) {
       checkout scm
     } else {
