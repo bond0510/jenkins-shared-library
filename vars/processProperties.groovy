@@ -9,7 +9,7 @@ void call( Map args=[:] ) {
             println prop.name
             prop.keys.each { key ->
                 script {
-                    env.fileName = args.workingDirectory"/"k8s"/"prop.name
+                    env.fileName = "${args.workingDirectory}/k8s/${prop.name}"
                     if ( args?.containsKey (key) ) {
                         env.propertyKey = key
                         value = args?.get (key)
