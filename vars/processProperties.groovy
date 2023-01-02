@@ -16,12 +16,12 @@ void call( Map args=[:] ) {
                             env.propertyKey = key
                             value = args?.get (key)
                             env.propertyValue = value
-                            println "${key} value is ${value}"
                         } else {
                             println "No property defined for ${key}"
                         }
                         sh 'sed -i "s/$propertyKey/$propertyValue/g" $fileName'
-                        sh ' echo  $fileName  $propertyKey $propertyValue '
+                    } else {
+                        println " ${key} file not found"
                     }
                 }
             }
