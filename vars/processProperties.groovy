@@ -13,12 +13,14 @@ void call( Map args=[:] ) {
                     if ( args?.containsKey (key) ) {
                         env.propertyKey = key
                         value = args?.get (key)
+                        env.propertyValue = value
                         println "${key} value is ${value}"
                     } else {
                         println "No property defined for ${key}"
                     }
                 }
-                sh ' echo  $fileName $propertyKey '
+                sh 'sed -i "s/$propertyKey/$propertyValue/g" /k8s/$fileName'
+                sh ' echo  $fileName  $propertyKey $propertyValue '
             }
         }
     } else {
