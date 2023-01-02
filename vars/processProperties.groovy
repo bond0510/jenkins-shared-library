@@ -9,18 +9,21 @@ void call( Map args=[:] ) {
             println prop.name
             prop.keys.each { key ->
                 script {
-                    env.fileName = "${args.workingDirectory}/k8s/${prop.name}"
-                    if ( args?.containsKey (key) ) {
-                        env.propertyKey = key
-                        value = args?.get (key)
-                        env.propertyValue = value
-                        println "${key} value is ${value}"
-                    } else {
-                        println "No property defined for ${key}"
+                    file = "${args.workingDirectory}/k8s/${prop.name}"
+                    if ( fileExists (file)) {
+                        env.fileName = file
+                        if ( args?.containsKey (key) ) {
+                            env.propertyKey = key
+                            value = args?.get (key)
+                            env.propertyValue = value
+                            println "${key} value is ${value}"
+                        } else {
+                            println "No property defined for ${key}"
+                        }
+                        sh 'sed -i "s/$propertyKey/$propertyValue/g" $fileName'
+                        sh ' echo  $fileName  $propertyKey $propertyValue '
                     }
                 }
-                sh 'sed -i "s/$propertyKey/$propertyValue/g" $fileName'
-                sh ' echo  $fileName  $propertyKey $propertyValue '
             }
         }
     } else {
