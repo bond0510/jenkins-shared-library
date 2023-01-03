@@ -97,7 +97,7 @@ def call(Map args=[:] ) {
             stage('Deploy on Kubernetes') {
                 steps {
                     script {
-                        processProperties( config )
+                        kubernetesExecution( config )
                     }
                 }
             }
