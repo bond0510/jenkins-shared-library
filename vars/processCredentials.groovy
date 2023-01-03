@@ -15,9 +15,9 @@ void call( Map args=[:] ) {
                         CREDENTIALS_ID = getCredentialsId(key)
                         env.USERNAME = "${key}_USERNAME"
                         env.PASSWORD = "${key}_PASSWORD"
-                        withCredentials([usernamePassword(credentialsId: key, passwordVariable: 'PWD', usernameVariable: 'UNAME')]) {
-					        sh 'sed -i "s/$USERNAME/$UNAME/g" $fileName'
-				            sh 'sed -i "s/$PASSWORD/$PWD/g" $fileName'
+                        withCredentials([usernamePassword(credentialsId: key, passwordVariable: 'PASSWORD_VAL', usernameVariable: 'USERNAME_VAL')]) {
+					        sh 'sed -i "s/$USERNAME/$USERNAME_VAL/g" $fileName'
+				            sh 'sed -i "s/$PASSWORD/$PASSWORD_VAL/g" $fileName'
                         }
 			        }
                 }
