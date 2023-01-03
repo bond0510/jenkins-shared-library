@@ -21,7 +21,7 @@ void call( Map args=[:] ) {
                         }
                         sh 'sed -i "s/$propertyKey/$propertyValue/g" $fileName'
                     } else {
-                        println " ${key} file not found"
+                        println " ${file} file not found"
                     }
                 }
             }
