@@ -14,7 +14,7 @@ void call( Map args=[:] ) {
                         env.fileName = file
                         env.credentialsId = getCredentialsId(key)
                         env.propertyKey = key
-                        withCredentials([string(credentialsId: '${e.credentialsId}', variable: 'property_value')]) {
+                        withCredentials([string(credentialsId: '$credentialsId', variable: 'property_value')]) {
                             sh 'sed -i "s/$propertyKey/$property_value/g" $fileName'
                         }
                     }
