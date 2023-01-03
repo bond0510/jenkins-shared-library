@@ -10,7 +10,7 @@ void call( Map args=[:] ) {
         if ( fileExists (file)) {
            env.fileName = file
            env.imageName = ocirDockerImageName
-           sh 'sed -i "s/OCIR_DOCKER_IMAGE_NAME/$imageName/g" $fileName'
+           sh 'sed -i "s/OCIR_DOCKER_IMAGE_NAME/'$imageName'/g" $fileName'
         }
     }
 }
