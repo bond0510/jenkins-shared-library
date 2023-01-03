@@ -75,6 +75,14 @@ def call(Map args=[:] ) {
                 }
             }
 
+            stage('Process Credentials') {
+                steps {
+                    script {
+                        processCredentials( config )
+                    }
+                }
+            }
+
             stage('Deploy on Kubernetes') {
                 steps {
                     script {
