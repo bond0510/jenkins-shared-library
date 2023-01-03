@@ -12,13 +12,9 @@ void call( Map args=[:] ) {
                     file = "${args.workingDirectory}/k8s/${prop.name}"
                     if ( fileExists (file)) {
                         env.fileName = file
-                        if ( args?.containsKey (key) ) {
-                            env.credentialsId = getCredentialsId(key)
-                            env.propertyKey = key
-                        } else {
-                            println "No property defined for ${key}"
-                        }
-                        withCredentials([string(credentialsId: '$credentialsId', variable: 'property_value')]) {
+                        env.credentialsId = getCredentialsId(key)
+                        env.propertyKey = key
+                        withCredentials([string(credentialsId: '${e.credentialsId}', variable: 'property_value')]) {
                             sh 'sed -i "s/$propertyKey/$property_value/g" $fileName'
                         }
                     }
