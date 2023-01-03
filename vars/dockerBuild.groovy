@@ -21,7 +21,7 @@ void call ( Map args=[:] ) {
     stage('Push Docker Image') {
         String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
         String fullDockerImageName = tenancyNamespace + dockerImageName
-        dockerCfg.ocirDockerImageName = fullDockerImageName
+        dockerCfg.setOcirDockerImageName( fullDockerImageName )
         pushDockerImage(fullDockerImageName,tags)
     }
 }
