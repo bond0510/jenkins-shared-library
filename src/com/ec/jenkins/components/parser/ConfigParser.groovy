@@ -18,6 +18,8 @@ class ConfigParser {
 
         projectConfiguration.secretes = parseProperties(yaml.Secretes)
 
+        projectConfiguration.credentials = parseProperties(yaml.Credentials)
+
         return projectConfiguration
     }
 
