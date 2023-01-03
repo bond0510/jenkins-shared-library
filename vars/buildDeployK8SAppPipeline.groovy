@@ -58,11 +58,11 @@ def call(Map args=[:] ) {
             }
             stage('Flyway Execution') {
                 when {
-                    expression { return flywayExecution ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ }
+                    expression { return args.flywayExecution ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ }
                 }
                 steps {
                     script {
-                        dir(args.flywayExecution) {
+                        dir(args.workingDirectory) {
                             flywayExecution ( config )
                         }
                     }
