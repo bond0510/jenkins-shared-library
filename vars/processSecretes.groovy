@@ -9,13 +9,18 @@ void call( Map args=[:] ) {
             println prop.name
             prop.keys.each { key ->
                 script {
-                    env.fileName = prop.name
-                    if ( args?.containsKey (key) ) {
-                        env.propertyKey = key
-                        value = args?.get (key)
-                        println "${key} value is ${value}"
-                    } else {
-                        println "No property defined for ${key}"
+                    file = "${args.workingDirectory}/k8s/${prop.name}"
+                    if ( fileExists (file)) {
+                        env.fileName = file
+                        if ( args?.containsKey (key) ) {
+                            env.credentialsId = getCredentialsId(key)
+                            env.propertyKey = key
+                        } else {
+                            println "No property defined for ${key}"
+                        }
+                        withCredentials([string(credentialsId: '$credentialsId', variable: 'property_value')]) {
+                            sh 'sed -i "s/$propertyKey/$property_value/g" $fileName'
+                        }
                     }
                 }
                 sh ' echo  $fileName $propertyKey '
@@ -23,5 +28,18 @@ void call( Map args=[:] ) {
         }
     } else {
         println 'No properties are configured for this pipeline'
+    }
+}
+
+String getCredentialsId(String key) {
+    switch (env) {
+        case ['dev' ,'test']:
+           return "${key}_TEST"
+        case 'stage':
+           return "${key}_STAGE"
+        case 'prod' :
+           return "${key}_PROD"
+        default:
+            return "${key}_TEST"
     }
 }
