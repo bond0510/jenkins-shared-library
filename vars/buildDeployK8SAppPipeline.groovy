@@ -56,7 +56,18 @@ def call(Map args=[:] ) {
                     }
                 }
             }
-
+            stage('Flyway Execution') {
+                when {
+                    expression { return flywayExecution ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ }
+                }
+                steps {
+                    script {
+                        dir(args.flywayExecution) {
+                            flywayExecution ( config )
+                        }
+                    }
+                }
+            }
             stage('Process Properties') {
                 steps {
                     script {
