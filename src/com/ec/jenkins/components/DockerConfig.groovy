@@ -9,7 +9,7 @@ class DockerConfig {
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
     void setOcirDockerImageName (String name){
-        this.ocirDockerImageName = name
+        this.ocirDockerImageName = name.replaceAll( '/' ,'\/');
     }
 
     String tenancyNamespace (String env ) {
