@@ -7,6 +7,7 @@ void call ( Map args=[:] ) {
     DockerConfig dockerCfg = projectConfig.dockerConfig
     String dockerImageName =  dockerCfg.imageName.toLowerCase()
     String tagVersion = args.TAG_VERSION
+    dockerCfg.setTag(tagVersion)
     String evnVal = args.env
     List<String> tags = [tagVersion.toLowerCase() ,'latest']
     String commitID = args.GIT_COMMIT

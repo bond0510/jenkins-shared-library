@@ -6,10 +6,16 @@ class DockerConfig {
 
     String ocirDockerImageName
 
+    String tag
+
     public static FULL_IMAGE_REPO_URL = "fra.ocir.io/entercard/msp/"
 
     void setOcirDockerImageName (String name) {
         this.ocirDockerImageName = name
+    }
+
+    void setTag(String tagVersion){
+        this.tag=tagVersion
     }
 
     String tenancyNamespace (String env ) {
