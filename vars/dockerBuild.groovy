@@ -7,27 +7,28 @@ void call ( Map args=[:] ) {
     DockerConfig dockerCfg = projectConfig.dockerConfig
     String dockerImageName =  dockerCfg.imageName.toLowerCase()
     String tagVersion = args.TAG_VERSION
-    dockerCfg.setTag(tagVersion)
+    dockerCfg.tag = tagVersion.toLowerCase()
     String evnVal = args.env
     List<String> tags = [tagVersion.toLowerCase() ,'latest']
     String commitID = args.GIT_COMMIT
     dir(args.workingDirectory) {
-        buildDockerImage( dockerImageName,tags,commitID.trim(),tagVersion.trim() )
+        if (evnVal == 'test') {
+            buildDockerImage( dockerImageName , tags,commitID.trim(),tagVersion.trim() )
+        }
     }
     stage('Tag Docker Image') {
-        String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
-        String ocirDockerImageName = tenancyNamespace + dockerImageName
-        tagDockerImage(dockerImageName , ocirDockerImageName , tags)
+        String sourceDockerImageName = dockerCfg.sourceImageName(evnVal , dockerImageName )
+        String targetDockerImageName = dockerCfg.targetImageName(evnVal , dockerImageName )
+        tagDockerImage(sourceDockerImageName , targetDockerImageName , tags)
     }
     stage('Push Docker Image') {
-        String tenancyNamespace = dockerCfg.tenancyNamespace(evnVal)
-        String fullDockerImageName = tenancyNamespace + dockerImageName
-        pushDockerImage(fullDockerImageName,tags)
+        String targetDockerImageName = dockerCfg.targetImageName(evnVal , dockerImageName )
+        pushDockerImage(targetDockerImageName , tags)
     }
 }
 
 void buildDockerImage ( String imageName, List<String> tags,String commitID,String buildVersion ) { 
-    deleteDockerImage(imageName,tags)
+    deleteDockerImage(imageName , tags)
     String currentTime = getTimeStamp().trim()
     tags.each { tag ->
         sh "docker build --build-arg BUILD_DATE=${currentTime} --build-arg VCS_REF=${commitID} --build-arg BUILD_VERSION=${buildVersion} --file=docker/Dockerfile.remote  -t ${imageName}:${tag} ."
@@ -50,9 +51,9 @@ void pushDockerImage ( String ocirDockerImageName, List<String> tags ) {
     }
 }
 
-void tagDockerImage ( String imageName, String ocirDockerImageName, List<String> tags ) {
+void tagDockerImage ( String sourceImageName, String targetImageName, List<String> tags ) {
     tags.each { tag ->
-        sh "docker tag ${imageName}:${tag} ${ocirDockerImageName}:${tag}"
+        sh "docker tag ${sourceImageName}:${tag} ${targetImageName}:${tag}"
     }
 }
 

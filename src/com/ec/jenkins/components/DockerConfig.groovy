@@ -31,4 +31,30 @@ class DockerConfig {
         }
     }
 
+    String sourceImageName ( String env ,String dockerImage ) {
+        switch (env) {
+            case ['dev' ,'test']:
+                return dockerImage
+            case 'stage':
+                return "${FULL_IMAGE_REPO_URL}tstenv/${dockerImage}"
+            case 'prod' :
+                return "${FULL_IMAGE_REPO_URL}stgenv/${dockerImage}"
+            default:
+                return dockerImage
+        }
+    }
+
+    String targetImageName ( String env ,String dockerImage ) {
+        switch (env) {
+            case ['dev' ,'test']:
+                return "${FULL_IMAGE_REPO_URL}tstenv/${dockerImage}"
+            case 'stage':
+                return "${FULL_IMAGE_REPO_URL}stgenv/${dockerImage}"
+            case 'prod' :
+                return "${FULL_IMAGE_REPO_URL}proenv/${dockerImage}"
+            default:
+                return "${FULL_IMAGE_REPO_URL}tstenv/${dockerImage}"
+        }
+    }
+
 }
