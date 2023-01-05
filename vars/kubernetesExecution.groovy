@@ -6,16 +6,17 @@ void call( Map args=[:] ) {
     DockerConfig dockerCfg = projectConfig.dockerConfig
     String dockerImageName = dockerCfg.imageName
     String dockerImageTag = dockerCfg.tag
-    updateAppYaml (dockerImageName , dockerImageTag )
+    String envName = args.env
+    updateAppYaml (dockerImageName , dockerImageTag , envName)
 }
 
-void updateAppYaml(String dockerImageName , String dockerImageTag ) {
+void updateAppYaml(String dockerImageName , String dockerImageTag ,String envName ) {
         file = "${args.workingDirectory}/k8s/app.yaml"
         if ( fileExists (file)) {
            env.fileName = file
            env.IMAGENAME = dockerImageName
            env.IMAGETAG = dockerImageTag
-           env.ENVNAME = getEnv(args.env)
+           env.ENVNAME = getEnv(envName)
            sh 'sed -i "s/ENV/$ENVNAME/g" $fileName'
            sh 'sed -i "s/DOCKER_IMAGE_NAME/$IMAGENAME/g" $fileName'
            sh 'sed -i "s/TAG/$IMAGETAG/g" $fileName'
