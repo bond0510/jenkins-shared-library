@@ -12,7 +12,7 @@ void call ( Map args=[:] ) {
     List<String> tags = [tagVersion.toLowerCase() ,'latest']
     String commitID = args.GIT_COMMIT
     dir(args.workingDirectory) {
-        if (evnVal == 'test') {
+        if (evnVal == 'test' || evnVal == 'dev' ) {
             buildDockerImage( dockerImageName , tags,commitID.trim(),tagVersion.trim() )
         }
     }
@@ -43,7 +43,7 @@ void deleteDockerImage (String imageName, List<String> tags){
     }
 }
 
-boolean checkDockerImageExists (String imageName, String tag){
+boolean checkDockerImageExists (String imageName, String tag) {
   found = sh([returnStdout: true, script: " docker image inspect ${imageName}:${tag} >/dev/null 2>&1 &&  echo found || echo notfound"]).trim()
   if (found == 'found') {
       return true
