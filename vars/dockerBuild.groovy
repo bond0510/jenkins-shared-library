@@ -43,6 +43,14 @@ void deleteDockerImage (String imageName, List<String> tags){
     }
 }
 
+boolean checkDockerImageExists (String imageName, String tag){
+  found = sh([returnStdout: true, script: " docker image inspect ${imageName}:${tag} >/dev/null 2>&1 &&  echo found || echo notfound"]).trim()
+  if (found == 'found') {
+      return true
+  }
+  return false
+}
+
 void pushDockerImage ( String ocirDockerImageName, List<String> tags ) {
     tags.each { tag ->
         withDockerRegistry(credentialsId: 'oicr_creds', url: 'https://fra.ocir.io'){
@@ -53,6 +61,11 @@ void pushDockerImage ( String ocirDockerImageName, List<String> tags ) {
 
 void tagDockerImage ( String sourceImageName, String targetImageName, List<String> tags ) {
     tags.each { tag ->
+        if ( checkDockerImageExists (sourceImageName , tag) ){
+            println "docker image found"
+        } else {
+            println "docker image not found"
+        }
         sh "docker tag ${sourceImageName}:${tag} ${targetImageName}:${tag}"
     }
 }
