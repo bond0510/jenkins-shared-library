@@ -7,11 +7,12 @@ void call( Map args=[:] ) {
     String dockerImageName = dockerCfg.imageName
     String dockerImageTag = dockerCfg.tag
     String envName = args.env
-    updateAppYaml (dockerImageName , dockerImageTag , envName)
+    String path =args.workingDirectory
+    updateAppYaml (dockerImageName , dockerImageTag , envName,path)
 }
 
-void updateAppYaml(String dockerImageName , String dockerImageTag ,String envName ) {
-        file = "${args.workingDirectory}/k8s/app.yaml"
+void updateAppYaml(String dockerImageName , String dockerImageTag ,String envName ,String path) {
+        file = "${path}/k8s/app.yaml"
         if ( fileExists (file)) {
            env.fileName = file
            env.IMAGENAME = dockerImageName
