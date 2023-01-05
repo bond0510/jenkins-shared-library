@@ -6,7 +6,10 @@ void call( Map args=[:] ) {
     DockerConfig dockerCfg = projectConfig.dockerConfig
     String dockerImageName = dockerCfg.imageName
     String dockerImageTag = dockerCfg.tag
-    script {
+    updateAppYaml (dockerImageName , dockerImageTag )
+}
+
+void updateAppYaml(String dockerImageName , String dockerImageTag ) {
         file = "${args.workingDirectory}/k8s/app.yaml"
         if ( fileExists (file)) {
            env.fileName = file
@@ -17,9 +20,7 @@ void call( Map args=[:] ) {
            sh 'sed -i "s/DOCKER_IMAGE_NAME/$IMAGENAME/g" $fileName'
            sh 'sed -i "s/TAG/$IMAGETAG/g" $fileName'
         }
-    }
 }
-
 String getEnv(String name){
    switch (name) {
         case ['dev' ,'test']:
